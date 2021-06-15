@@ -28,14 +28,18 @@ struct HomeView: View {
                             .frame(height: 1)
                             .opacity(0.2)
 
-                        //olympusGoddess
                         
-                        //otherGoddess
                         ZStack {
-                            Card(show: $show, goddess: goddess[0])
+
+                            VStack {
+                                olympusGoddess
+                                otherGoddess
+                            }
+                            
                         }
-                        //.offset(show ? CGPoint(-200.0) : 0)
-                        .zIndex(0)
+                        
+                        .offset(y: show ? CGFloat(-130) : CGFloat(0))
+                        .zIndex(1)
                         .ignoresSafeArea()
                         
                         
@@ -73,13 +77,15 @@ struct HomeView: View {
                     ForEach(goddess.filter {
                         $0.type == .olympus
                     }.indices) { index in
-                        Card(show: $show, goddess: goddess[index])
-                            
-                            .frame(maxWidth: 300)
-                            .frame(height: 420)
-                            
-                            .onTapGesture {
-                                show.toggle()
+                        ZStack {
+                            Card(show: $show, goddess: goddess[index])
+                                
+                                .frame(maxWidth: 300)
+                                .frame(height: 420)
+                                
+                                .onTapGesture {
+                                    show.toggle()
+                            }
                         }
                     }
                 }

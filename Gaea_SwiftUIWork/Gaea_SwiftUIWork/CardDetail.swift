@@ -17,6 +17,7 @@ struct CardDetail: View {
         ScrollView {
             VStack(alignment: .center) {
                 ZStack {
+                    
                     goddess.image
                         .resizable()
                         .aspectRatio(contentMode: .fill)
@@ -76,6 +77,7 @@ struct CardDetail: View {
                 }
             }
         }
+        .background(Color("Background"))
         
         .ignoresSafeArea()
     }
