@@ -8,38 +8,75 @@
 import SwiftUI
 
 struct Card: View {
-    @Namespace var namespace
+    
+    @Binding var show: Bool
     var goddess: Goddess
+    @Namespace var namespace
     
     var body: some View {
-        VStack {
-            Spacer()
-            
-            VStack(alignment: .leading) {
-                Text(goddess.name)
-                    .matchedGeometryEffect(id: "Name", in: namespace)
-                    .font(.custom("Dida", size: 44))
-                    .foregroundColor(Color("NameYellow"))
+        ZStack {
+            if show == false {
+                VStack {
+                    Spacer()
                     
-                Text(goddess.headDescription)
-                    .font(.system(size: 13, weight: .light, design: .monospaced))
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(3)
+                    VStack(alignment: .leading) {
+                        Text(goddess.name)
+                            .matchedGeometryEffect(id: "name", in: namespace)
+                            .font(.custom("Dida", size: 44))
+                            .foregroundColor(Color("NameYellow"))
+                        
+                        Text(goddess.headDescription)
+                            .matchedGeometryEffect(id: "headDescription", in: namespace)
+                            .font(.system(size: 13, weight: .light, design: .monospaced))
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(3)
+                            
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: 150)
+                    .frame(height: 110)
+                    .padding(.all, 9)
+                    .background(
+                        VisualEffectBlur(blurStyle: .systemUltraThinMaterial)
+                            .opacity(show ? 0 : 0.8)
+                    )
+                }
+                .frame(width: 300, height: 420)
+                .background(
+                    goddess.image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .matchedGeometryEffect(id: "image", in: namespace)
+                )
+                .mask(RoundedRectangle(cornerRadius: 22.0, style: .continuous))
+                .shadow(color: .black.opacity(0.25), radius: 20, x: 0.0, y: 10)
+            } else {
+                
+                ZStack {
+                    CardDetail(goddess: goddess, namespace: namespace)
+                    HStack {
+                        Spacer()
+                        VStack {
+                            Image(systemName: "xmark.octagon.fill")
+                                .font(.system(size: 36))
+                                .opacity(0.8)
+                                .offset(x: -16, y: 16)
+                                .animation(.easeIn)
+                                .onTapGesture {
+                                    show = false
+                                }
+                            Spacer()
+                        }
+                    }
+                }
+                .frame(maxWidth: screen.width, maxHeight: screen.height)
             }
-            .frame(maxWidth: .infinity, maxHeight: 150)
-            .frame(height: 110)
-            .padding(.all, 9)
-            .background(VisualEffectBlur(blurStyle: .systemUltraThinMaterial))
         }
-        
-        .background(
-            goddess.image
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .matchedGeometryEffect(id: "Image", in: namespace)
-        )
-        .mask(RoundedRectangle(cornerRadius: 22.0, style: .continuous))
-        .shadow(color: .black.opacity(0.25), radius: 20, x: 0.0, y: 10)
+        .onTapGesture {
+            withAnimation(.easeInOut) {
+                show.toggle()
+            }
+        }
+        .ignoresSafeArea()
     }
 }
 
@@ -48,6 +85,6 @@ struct Card: View {
 struct Card_Previews: PreviewProvider {
     @Namespace static var namespace
     static var previews: some View {
-        Card(goddess: goddess[2])
+        Card(show: .constant(false), goddess: goddess[1])
     }
 }

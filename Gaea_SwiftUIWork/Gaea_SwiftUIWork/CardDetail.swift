@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct CardDetail: View {
-    var namespace: Namespace.ID
+    @Environment(\.presentationMode) var presentation
+    
     var goddess: Goddess
+    var namespace: Namespace.ID
     var body: some View {
         
         ScrollView {
@@ -18,21 +20,21 @@ struct CardDetail: View {
                     goddess.image
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .matchedGeometryEffect(id: "Image", in: namespace)
+                        .matchedGeometryEffect(id: "image", in: namespace)
                     
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .center) {
                         Spacer()
                         Text(goddess.name)
-                            .matchedGeometryEffect(id: "Name", in: namespace)
                             .font(.custom("Dida", size: 60))
                             .foregroundColor(Color("NameYellow"))
                             .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 10)
+                            .matchedGeometryEffect(id: "name", in: namespace)
                     }
                     .padding(.all, 9)
                     .padding(.bottom, 9)
                     .frame(maxWidth: .infinity)
                 }
-                .frame(maxWidth: .infinity, maxHeight: 620)
+                .frame(maxWidth: screen.width, maxHeight: 620, alignment: .center)
                 .clipShape(RoundedRectangle(cornerRadius: 0, style: .continuous))
                 .shadow(color: .black.opacity(0.25), radius: 20, x: 0.0, y: 10)
                 .edgesIgnoringSafeArea(.all)
@@ -46,6 +48,7 @@ struct CardDetail: View {
                     Text(goddess.headDescription)
                         .font(.system(size: 14, weight: .bold, design: .monospaced))
                         .multilineTextAlignment(.trailing)
+                        .matchedGeometryEffect(id: "headDescription", in: namespace)
                 }
                 .padding(.top, 9)
                 .padding(.horizontal, 9)
@@ -78,9 +81,11 @@ struct CardDetail: View {
     }
 }
 
+let screen = UIScreen.main.bounds
+
 struct CardDetail_Previews: PreviewProvider {
     @Namespace static var namespace
     static var previews: some View {
-        CardDetail(namespace: namespace, goddess: goddess[0])
+        CardDetail(goddess: goddess[1], namespace: namespace)
     }
 }
