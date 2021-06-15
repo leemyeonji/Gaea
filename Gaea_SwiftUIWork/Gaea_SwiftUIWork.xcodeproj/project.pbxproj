@@ -13,6 +13,8 @@
 		C68323EC2678521D00902939 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C68323EB2678521D00902939 /* Preview Assets.xcassets */; };
 		C68323F42678524500902939 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68323F32678524500902939 /* Card.swift */; };
 		C68323F62678524E00902939 /* CardDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68323F52678524E00902939 /* CardDetail.swift */; };
+		C68323F926785BDE00902939 /* Dida.otf in Resources */ = {isa = PBXBuildFile; fileRef = C68323F7267852FC00902939 /* Dida.otf */; };
+		C68323FB26785C7700902939 /* VisualEffectBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68323FA26785C7600902939 /* VisualEffectBlur.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,7 @@
 		C68323F32678524500902939 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		C68323F52678524E00902939 /* CardDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetail.swift; sourceTree = "<group>"; };
 		C68323F7267852FC00902939 /* Dida.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Dida.otf; sourceTree = "<group>"; };
+		C68323FA26785C7600902939 /* VisualEffectBlur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualEffectBlur.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +64,7 @@
 				C68323E62678521900902939 /* HomeView.swift */,
 				C68323F32678524500902939 /* Card.swift */,
 				C68323F52678524E00902939 /* CardDetail.swift */,
+				C68323FA26785C7600902939 /* VisualEffectBlur.swift */,
 				C68323F7267852FC00902939 /* Dida.otf */,
 				C68323E82678521D00902939 /* Assets.xcassets */,
 				C68323ED2678521D00902939 /* Info.plist */,
@@ -136,6 +140,7 @@
 			files = (
 				C68323EC2678521D00902939 /* Preview Assets.xcassets in Resources */,
 				C68323E92678521D00902939 /* Assets.xcassets in Resources */,
+				C68323F926785BDE00902939 /* Dida.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +151,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C68323FB26785C7700902939 /* VisualEffectBlur.swift in Sources */,
 				C68323F62678524E00902939 /* CardDetail.swift in Sources */,
 				C68323E72678521900902939 /* HomeView.swift in Sources */,
 				C68323F42678524500902939 /* Card.swift in Sources */,

@@ -34,10 +34,11 @@ struct HomeView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 30) {
                             Card()
+                                .frame(width: 300, height: 420)
                         }
                         .padding(.leading, 27)
                         .padding(.bottom, 60)
-                        .padding(.top, 60)
+                        
                    
                         
                     }
