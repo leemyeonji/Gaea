@@ -33,7 +33,7 @@ struct HomeView: View {
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 30) {
-                            Card()
+                            Card(goddess: goddess[0])
                                 .frame(width: 300, height: 420)
                         }
                         .padding(.leading, 27)

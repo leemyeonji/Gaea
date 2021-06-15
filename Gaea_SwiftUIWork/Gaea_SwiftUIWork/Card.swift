@@ -8,22 +8,24 @@
 import SwiftUI
 
 struct Card: View {
+    var goddess: Goddess
+    
     var body: some View {
         VStack {
             Spacer()
             
             VStack(alignment: .leading) {
-                Text("Demeter")
+                Text(goddess.name)
                     .font(.custom("Dida", size: 44))
                     .foregroundColor(Color("NameYellow"))
-                Text("Olympian goddess of the harvest and agriculture, presiding over grains and the fertility of the earth.")
+                Text(goddess.headDescription)
                     .font(.system(size: 13, weight: .light, design: .monospaced))
             }
             .padding(.all, 9)
             .background(VisualEffectBlur(blurStyle: .systemUltraThinMaterial))
         }
         .background(
-            Image("Ceres_Hendrick Goltzius")
+            goddess.image
                 .resizable()
                 .aspectRatio(contentMode: .fill)
         )
@@ -34,6 +36,6 @@ struct Card: View {
 
 struct Card_Previews: PreviewProvider {
     static var previews: some View {
-        Card()
+        Card(goddess: goddess[0])
     }
 }
