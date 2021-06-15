@@ -62,10 +62,10 @@
 		C68323E32678521900902939 /* Gaea_SwiftUIWork */ = {
 			isa = PBXGroup;
 			children = (
-				C68323E42678521900902939 /* Gaea_SwiftUIWorkApp.swift */,
 				C68323E62678521900902939 /* HomeView.swift */,
 				C68323FC2678A6E000902939 /* Goddess.swift */,
 				C68323F32678524500902939 /* Card.swift */,
+				C68323E42678521900902939 /* Gaea_SwiftUIWorkApp.swift */,
 				C68323F52678524E00902939 /* CardDetail.swift */,
 				C68323FA26785C7600902939 /* VisualEffectBlur.swift */,
 				C68323F7267852FC00902939 /* Dida.otf */,

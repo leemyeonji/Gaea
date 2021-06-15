@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @State var show = false
+    var namespace: Namespace.ID
     
     var body: some View {
         if show == false {
@@ -26,33 +27,41 @@ struct HomeView: View {
                             .frame(height: 1)
                             .opacity(0.2)
                         
-                        
-                        Text("Olympus")
-                            .font(.system(size: 20, weight: .bold, design: .monospaced))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.leading, 27)
-                            .padding(.top, 22)
-                        
-                        
-                        
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 30) {
-                                Card(goddess: goddess[0])
-                                    .frame(width: 300, height: 420)
-                                    .onTapGesture {
-                                        show.toggle()
+
+                        ZStack(alignment: .top) {
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 30) {
+                                    ForEach(goddess.filter {
+                                        $0.type == .olympus
+                                    }.indices) { index in
+                                        Card(goddess: goddess[index])
+                                            .frame(maxWidth: 300)
+                                            .frame(height: 420)
+                                            .animation(.spring())
+                                            .onTapGesture {
+                                                show.toggle()
+                                        }
+                                            
                                     }
+                                    
+                                }
+                                .padding(.horizontal, 27)
+                                .padding(.bottom, 60)
+                                .padding(.top, 60)
                             }
-                            .padding(.leading, 27)
-                            .padding(.bottom, 60)
                             
+                            Text("Olympus")
+                                .font(.system(size: 20, weight: .bold, design: .monospaced))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 27)
+                                .padding(.top, 22)
                         }
                     }
                 }
             }
         } else {
             ZStack {
-                CardDetail(goddess: goddess[0])
+                CardDetail(namespace: namespace, goddess: goddess[0])
                 
                 HStack {
                     Spacer()
@@ -61,6 +70,7 @@ struct HomeView: View {
                             .font(.system(size: 36))
                             .opacity(0.8)
                             .offset(x: -16)
+                            .animation(.easeIn)
                             .onTapGesture {
                                 show = false
                             }
@@ -68,12 +78,15 @@ struct HomeView: View {
                     }
                 }
             }
+            
         }
+        
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
+    @Namespace static var namespace
     static var previews: some View {
-        HomeView()
+        HomeView(namespace: namespace)
     }
 }

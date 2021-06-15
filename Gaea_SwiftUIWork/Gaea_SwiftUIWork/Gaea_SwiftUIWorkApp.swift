@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct Gaea_SwiftUIWorkApp: App {
+
+    var namespace: Namespace.ID!
+    
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            HomeView(namespace: namespace)
         }
     }
 }

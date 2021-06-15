@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CardDetail: View {
+    var namespace: Namespace.ID
     var goddess: Goddess
     var body: some View {
         
@@ -17,11 +18,12 @@ struct CardDetail: View {
                     goddess.image
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                    
+                        .matchedGeometryEffect(id: "Image", in: namespace)
                     
                     VStack(alignment: .leading) {
                         Spacer()
                         Text(goddess.name)
+                            .matchedGeometryEffect(id: "Name", in: namespace)
                             .font(.custom("Dida", size: 60))
                             .foregroundColor(Color("NameYellow"))
                             .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 10)
@@ -77,7 +79,8 @@ struct CardDetail: View {
 }
 
 struct CardDetail_Previews: PreviewProvider {
+    @Namespace static var namespace
     static var previews: some View {
-        CardDetail(goddess: goddess[0])
+        CardDetail(namespace: namespace, goddess: goddess[0])
     }
 }

@@ -40,7 +40,7 @@ var goddess: [Goddess] = [
             fotterImageDescription: nil,
             type: Type.olympus),
     
-    Goddess(name: "Aphrodite",
+    Goddess(name: "Venus",
             image: Image("Cornelis Holsteyn_Venus de dood van Adonis bewenend"),
             headDescription: "Aphrodite is an ancient Greek goddess associated with love, beauty, pleasure, passion and procreation.",
             description: "Aphrodite was syncretized with the Roman goddess Venus. Aphrodite's major symbols include myrtles, roses, doves, sparrows, and swans. The cult of Aphrodite was largely derived from that of the Phoenician goddess Astarte, a cognate of the East Semitic goddess Ishtar, whose cult was based on the Sumerian cult of Inanna.\nAphrodite's main cult centers were Cythera, Cyprus, Corinth, and Athens. Her main festival was the Aphrodisia, which was celebrated annually in midsummer. In Laconia, Aphrodite was worshipped as a warrior goddess. She was also the patron goddess of prostitutes, an association which led early scholars to propose the concept of 'sacred prostitution' in Greco-Roman culture, an idea which is now generally seen as erroneous.",
