@@ -18,7 +18,7 @@ struct Goddess: Identifiable {
     var id = UUID()
 }
 
-enum Type {
+enum Type: String {
     case olympus
     case other
 }

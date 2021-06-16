@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct CardDetail: View {
-    
-    
+
     var goddess: Goddess
     var namespace: Namespace.ID
     var body: some View {
