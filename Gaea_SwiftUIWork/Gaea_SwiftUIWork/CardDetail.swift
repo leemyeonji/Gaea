@@ -9,38 +9,15 @@ import SwiftUI
 
 struct CardDetail: View {
     
-    @Binding var show: Bool
+    
     var goddess: Goddess
     var namespace: Namespace.ID
     var body: some View {
         
         ScrollView {
             VStack(alignment: .center) {
-                ZStack {
-                    
-                    goddess.image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .matchedGeometryEffect(id: "image", in: namespace, isSource: show)
-                    
-                    VStack(alignment: .center) {
-                        Spacer()
-                        Text(goddess.name)
-                            .font(.custom("Dida", size: 60))
-                            .foregroundColor(Color("NameYellow"))
-                            .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 10)
-                            .matchedGeometryEffect(id: "name", in: namespace, isSource: show)
-                    }
-                    .padding(.all, 9)
-                    .padding(.bottom, 9)
-                    .frame(maxWidth: .infinity)
-                }
-                .frame(maxWidth: screen.width, maxHeight: 620, alignment: .center)
-                .mask(RoundedRectangle(cornerRadius: 0, style: .continuous)
-                        .matchedGeometryEffect(id: "mask", in: namespace))
-                .shadow(color: .black.opacity(0.25), radius: 20, x: 0.0, y: 10)
-                .edgesIgnoringSafeArea(.all)
-                
+                CardItem(goddessItem: goddess, namespace: namespace, cornerRadius: 0, alignment: .center, fontSize: 60, imageWidth: .infinity, imageHight: 600, blurViewOpacity: 0, headTextOpacity: 0)
+                    .matchedGeometryEffect(id: goddess.id, in: namespace)
                 
                 HStack(spacing: 14) {
                     Image(systemName: "bookmark")
@@ -50,7 +27,7 @@ struct CardDetail: View {
                     Text(goddess.headDescription)
                         .font(.system(size: 14, weight: .bold, design: .monospaced))
                         .multilineTextAlignment(.trailing)
-                        .matchedGeometryEffect(id: "headDescription", in: namespace)
+                    
                 }
                 .padding(.top, 9)
                 .padding(.horizontal, 9)
@@ -79,6 +56,7 @@ struct CardDetail: View {
             }
             
         }
+        .matchedGeometryEffect(id: "container\(goddess.id)", in: namespace)
         
         .background(Color("Background"))
         
@@ -91,6 +69,9 @@ let screen = UIScreen.main.bounds
 struct CardDetail_Previews: PreviewProvider {
     @Namespace static var namespace
     static var previews: some View {
-        CardDetail(show: .constant(true), goddess: goddess[1], namespace: namespace)
+        Group {
+            CardDetail(goddess: goddess[0], namespace: namespace)
+            
+        }
     }
 }

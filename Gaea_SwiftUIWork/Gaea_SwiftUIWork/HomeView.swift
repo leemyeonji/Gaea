@@ -9,10 +9,18 @@ import SwiftUI
 
 struct HomeView: View {
     @State var show: Bool = false
-    var namespace: Namespace
-    
+    @Namespace var namespace
+    @State var selectedGoddess: Goddess? = nil
     
     var body: some View {
+        ZStack {
+            content
+            fullContent
+        }
+        
+    }
+    
+    var content: some View {
        
             ScrollView(.vertical) {
                 ZStack {
@@ -27,101 +35,139 @@ struct HomeView: View {
                         Rectangle()
                             .frame(height: 1)
                             .opacity(0.2)
-
                         
                         
-                        
-                        
-                       Image("Artemis of Ephesians")
-                        .blur(radius: 6)
-                        .overlay(Rectangle()
-                                    .foregroundColor(.black.opacity(0.6))
-                        )
-                        .overlay(
-                            VStack(alignment: .leading, spacing: 26) {
-                                Text("Archaeological materials are not mute. They speak their own language. And they need to be used for the great source they are to help unravel the spirituality of those of our ancestors who predate the Indo-Europeans by many thousands of years.")
-                                    .font(.system(size: 18, weight: .light, design: .monospaced))
-                                Text("Marija Gimbutienė")
-                                    .font(.system(size: 18, weight: .bold, design: .monospaced))
-                                HStack(spacing: 14) {
-                                    Image(systemName: "play.rectangle.fill")
-                                    Image(systemName: "link")
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(goddess) { item in
+                                    HStack {
+                                        CardItem(goddessItem: item, namespace: namespace)
+                                            .matchedGeometryEffect(id: item.id, in: namespace, isSource: !show)
+                                            .transition(.identity)
+                                            .onTapGesture {
+                                                withAnimation(.spring(response: 0.7, dampingFraction: 0.7)) {
+                                                    show.toggle()
+                                                    selectedGoddess = item
+                                                }
+                                            }
+                                    }
+                                    .matchedGeometryEffect(id: "container\(item.id)", in: namespace, isSource: !show)
                                 }
-                                .font(.system(size: 18, weight: .bold, design: .monospaced))
                             }
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 60)
-                        )
-                        .padding(.top, 40)
-                    
+                        }
+                        
+                        Image("Artemis of Ephesians")
+                            .blur(radius: 6)
+                            .overlay(Rectangle()
+                                        .foregroundColor(.black.opacity(0.6))
+                            )
+                            .overlay(
+                                VStack(alignment: .leading, spacing: 26) {
+                                    Text("Archaeological materials are not mute. They speak their own language. And they need to be used for the great source they are to help unravel the spirituality of those of our ancestors who predate the Indo-Europeans by many thousands of years.")
+                                        .font(.system(size: 18, weight: .light, design: .monospaced))
+                                    Text("Marija Gimbutienė")
+                                        .font(.system(size: 18, weight: .bold, design: .monospaced))
+                                    HStack(spacing: 14) {
+                                        Image(systemName: "play.rectangle.fill")
+                                        Image(systemName: "link")
+                                    }
+                                    .font(.system(size: 18, weight: .bold, design: .monospaced))
+                                }
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 60)
+                            )
+                            .padding(.top, 40)
+                        
+                    }
                 }
             }
+    }
+    
+    @ViewBuilder
+    var fullContent: some View {
+        if let selectedGoddess = selectedGoddess {
+            ZStack(alignment: .topTrailing){
+                CardDetail(goddess: selectedGoddess, namespace: namespace)
+                
+                CloseButton()
+                    .padding(.trailing, 20)
+                    .onTapGesture {
+                        withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
+                            self.show = false
+                            self.selectedGoddess = nil
+                        }
+                    }
+                    .transition(.scale)
+            }
+            .zIndex(2)
+            
         }
     }
     
-//    var olympusGoddess: some View {
-//        ZStack(alignment: .top) {
-//            ScrollView(.horizontal, showsIndicators: false) {
-//                HStack(spacing: 30) {
-//                    ForEach(goddess.filter {
-//                        $0.type == .olympus
-//                    }.indices) { index in
-//                        ZStack {
-//                            Card(show: $show, goddess: goddess[index])
-//
-//                                .frame(maxWidth: 300)
-//                                .frame(height: 420)
-//
-//                                .onTapGesture {
-//                                    show.toggle()
-//                            }
-//                        }
-//                    }
-//                }
-//                .padding(.horizontal, 27)
-//                .padding(.bottom, 60)
-//                .padding(.top, 60)
-//            }
-//
-//            Text("Olympus")
-//                .font(.system(size: 20, weight: .bold, design: .monospaced))
-//                .frame(maxWidth: .infinity, alignment: .leading)
-//                .padding(.leading, 27)
-//                .padding(.top, 22)
-//        }
-//    }
-//
-//    var otherGoddess: some View {
-//        ZStack(alignment: .top) {
-//            ScrollView(.horizontal, showsIndicators: false) {
-//                HStack(spacing: 30) {
-//                    ForEach(goddess.filter {$0.type == .other}.indices) { index in
-//                        Card(show: show, namespace: namespace, goddess.filter {$0.type == .other}[index])
-//                            .frame(maxWidth: 360)
-//                            .frame(height: 480)
-//
-//                            .onTapGesture {
-//                                show.toggle()
-//                        }
-//                    }
-//                }
-//                .padding(.horizontal, 27)
-//                .padding(.bottom, 60)
-//                .padding(.top, 38)
-//            }
-//
-//            Text("Others")
-//                .font(.system(size: 20, weight: .bold, design: .monospaced))
-//                .frame(maxWidth: .infinity, alignment: .leading)
-//                .padding(.leading, 27)
-//
-//        }
-//    }
+    
+    //    var olympusGoddess: some View {
+    //        ZStack(alignment: .top) {
+    //            ScrollView(.horizontal, showsIndicators: false) {
+    //                HStack(spacing: 30) {
+    //                    ForEach(goddess.filter {
+    //                        $0.type == .olympus
+    //                    }.indices) { index in
+    //                        ZStack {
+    //                            Card(show: $show, goddess: goddess[index])
+    //
+    //                                .frame(maxWidth: 300)
+    //                                .frame(height: 420)
+    //
+    //                                .onTapGesture {
+    //                                    show.toggle()
+    //                            }
+    //                        }
+    //                    }
+    //                }
+    //                .padding(.horizontal, 27)
+    //                .padding(.bottom, 60)
+    //                .padding(.top, 60)
+    //            }
+    //
+    //            Text("Olympus")
+    //                .font(.system(size: 20, weight: .bold, design: .monospaced))
+    //                .frame(maxWidth: .infinity, alignment: .leading)
+    //                .padding(.leading, 27)
+    //                .padding(.top, 22)
+    //        }
+    //    }
+    //
+    //    var otherGoddess: some View {
+    //        ZStack(alignment: .top) {
+    //            ScrollView(.horizontal, showsIndicators: false) {
+    //                HStack(spacing: 30) {
+    //                    ForEach(goddess.filter {$0.type == .other}.indices) { index in
+    //                        Card(show: show, namespace: namespace, goddess.filter {$0.type == .other}[index])
+    //                            .frame(maxWidth: 360)
+    //                            .frame(height: 480)
+    //
+    //                            .onTapGesture {
+    //                                show.toggle()
+    //                        }
+    //                    }
+    //                }
+    //                .padding(.horizontal, 27)
+    //                .padding(.bottom, 60)
+    //                .padding(.top, 38)
+    //            }
+    //
+    //            Text("Others")
+    //                .font(.system(size: 20, weight: .bold, design: .monospaced))
+    //                .frame(maxWidth: .infinity, alignment: .leading)
+    //                .padding(.leading, 27)
+    //
+    //        }
+    //    }
 }
 
 struct ContentView_Previews: PreviewProvider {
     @Namespace static var namespace
     static var previews: some View {
-        HomeView(namespace: _namespace)
+        HomeView()
     }
 }

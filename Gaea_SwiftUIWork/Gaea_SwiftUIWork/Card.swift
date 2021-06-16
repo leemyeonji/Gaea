@@ -15,7 +15,7 @@ struct Card: View {
     var body: some View {
         ZStack {
             if show == false {
-                CardItem(show: $show, namespace: namespace)
+                CardItem(namespace: namespace)
             } else {
                 ScrollView {
                     VStack(alignment: .center) {
@@ -96,49 +96,56 @@ struct Card: View {
 struct Card_Previews: PreviewProvider {
     @Namespace static var namespace
     static var previews: some View {
-        Card()
+        CardItem(namespace: namespace)
     }
 }
 
 
 struct CardItem: View {
-    @Binding var show: Bool
+    var goddessItem: Goddess = goddess[0]
     var namespace: Namespace.ID
+    var cornerRadius: CGFloat = 22
+    var alignment: HorizontalAlignment = .leading
+    var fontSize: CGFloat = 44
+    var imageWidth: CGFloat = 300
+    var imageHight: CGFloat = 420
+    var blurViewOpacity: Double = 0.8
+    var headTextOpacity: Double = 1
     
     var body: some View {
         VStack {
             Spacer()
             
-            VStack(alignment: .leading) {
-                Text(goddess[0].name)
-                    .font(.custom("Dida", size: 44))
+            VStack(alignment: alignment) {
+                Text(goddessItem.name)
+                    .font(.custom("Dida", size: fontSize))
                     .foregroundColor(Color("NameYellow"))
-                    .matchedGeometryEffect(id: "name", in: namespace)
+                    
                 
-                Text(goddess[0].headDescription)
+                Text(goddessItem.headDescription)
                     .font(.system(size: 13, weight: .light, design: .monospaced))
                     .multilineTextAlignment(.leading)
                     .lineLimit(3)
-
+                    .opacity(headTextOpacity)
             }
             .frame(maxWidth: .infinity, maxHeight: 150)
             .frame(height: 110)
             .padding(.all, 9)
             .background(
                 VisualEffectBlur(blurStyle: .systemUltraThinMaterial)
-                    .opacity(show ? 0 : 0.8)
+                    .opacity(blurViewOpacity)
             )
             .clipped()
         }
         
         .background(
-            goddess[0].image
+            goddessItem.image
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .matchedGeometryEffect(id: "image", in: namespace)
+                
         )
-        .frame(width: 300, height: 420)
-        .mask(RoundedRectangle(cornerRadius: 22.0, style: .continuous))
+        .frame(width: imageWidth, height: imageHight)
+        .mask(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
         .shadow(color: .black.opacity(0.25), radius: 20, x: 0.0, y: 10)
     }
 }
