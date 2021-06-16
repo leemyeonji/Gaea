@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct CardDetail: View {
 
@@ -43,7 +44,7 @@ struct CardDetail: View {
                 .padding(.all, 32)
                 
                 VStack {
-                    goddess.footerImage?
+                    WebImage(url: goddess.footerImage)
                         .resizable()
                         .frame(maxWidth: .infinity)
                         .frame(height: 600)
@@ -65,12 +66,12 @@ struct CardDetail: View {
 
 let screen = UIScreen.main.bounds
 
-struct CardDetail_Previews: PreviewProvider {
-    @Namespace static var namespace
-    static var previews: some View {
-        Group {
-            CardDetail(goddess: goddess[0], namespace: namespace)
-            
-        }
-    }
-}
+//struct CardDetail_Previews: PreviewProvider {
+//    @Namespace static var namespace
+//    static var previews: some View {
+//        Group {
+//            CardDetail(goddess: goddess[0], namespace: namespace)
+//
+//        }
+//    }
+//}

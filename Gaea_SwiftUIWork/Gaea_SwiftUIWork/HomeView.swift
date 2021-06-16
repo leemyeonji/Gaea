@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct HomeView: View {
     @ObservedObject var store = GoddessStore()
     @State var show: Bool = false

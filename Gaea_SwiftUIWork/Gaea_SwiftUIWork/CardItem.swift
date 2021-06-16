@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 /* struct Card: View {
     
@@ -97,8 +98,8 @@ import SwiftUI
 
 
 struct CardItem: View {
-    var goddessItem: Goddess = goddess[0]
     
+    var goddessItem: Goddess
     var cornerRadius: CGFloat = 22
     var alignment: HorizontalAlignment = .leading
     var fontSize: CGFloat = 44
@@ -134,7 +135,7 @@ struct CardItem: View {
         }
         
         .background(
-            goddessItem.image
+            WebImage(url: goddessItem.image)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 
@@ -148,6 +149,6 @@ struct CardItem: View {
 struct Card_Previews: PreviewProvider {
     @Namespace static var namespace
     static var previews: some View {
-        CardItem()
+        CardItem(goddessItem: GoddessStore.init().goddess.first!)
     }
 }

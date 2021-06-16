@@ -35,11 +35,11 @@ class GoddessStore: ObservableObject {
             items.forEach { item in
                 self.goddess.append(Goddess(
                                         name: item.fields["name"] as! String,
-                                        image: Image("Peter Paul Rubens_Diana cazadora"),
+                                        image: item.fields.linkedAsset(at: "image")?.url ?? URL(string: "")!,
                                         headDescription: item.fields["headDescription"] as! String,
                                         description: item.fields["description"] as! String,
-                                        footerImage: nil,
-                                        fotterImageDescription: nil,
+                                        footerImage: item.fields.linkedAsset(at: "footerImage")?.url ?? nil,
+                                        fotterImageDescription: item.fields["fotterImageDescription"] as? String ?? nil,
                                         type: Type(rawValue: item.fields["type"] as! String) ?? .olympus))
             }
         }
