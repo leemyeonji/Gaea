@@ -37,24 +37,76 @@ struct HomeView: View {
                             .opacity(0.2)
                         
                         
-                        ScrollView(.horizontal, showsIndicators: false) {
+                        VStack {
                             HStack {
-                                ForEach(goddess) { item in
-                                    HStack {
-                                        CardItem(goddessItem: item, namespace: namespace)
-                                            .matchedGeometryEffect(id: item.id, in: namespace, isSource: !show)
-                                            .transition(.identity)
-                                            .onTapGesture {
-                                                withAnimation(.spring(response: 0.7, dampingFraction: 0.7)) {
-                                                    show.toggle()
-                                                    selectedGoddess = item
+                                Text("Olypus")
+                                    .font(.system(size: 20, weight: .bold, design: .monospaced))
+                                    .padding(.leading, 24)
+                                    .offset(y: 26)
+                                Spacer()
+                            }
+                            
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 30) {
+                                    ForEach(goddess.filter {
+                                        $0.type == .olympus
+                                    }) { item in
+                                        HStack {
+                                            CardItem(goddessItem: item)
+                                                .matchedGeometryEffect(id: item.id, in: namespace, isSource: !show)
+                                                .transition(.identity)
+                                                .onTapGesture {
+                                                    withAnimation(.spring(response: 0.7, dampingFraction: 0.7)) {
+                                                        show.toggle()
+                                                        selectedGoddess = item
+                                                    }
                                                 }
-                                            }
+                                        }
+                                        .matchedGeometryEffect(id: "container\(item.id)", in: namespace, isSource: !show)
                                     }
-                                    .matchedGeometryEffect(id: "container\(item.id)", in: namespace, isSource: !show)
                                 }
+                                .padding(.horizontal, 24)
+                                .padding(.top, 30)
+                                .padding(.bottom, 50)
                             }
                         }
+                        
+                        
+                        VStack {
+                            HStack {
+                                Text("Others")
+                                    .font(.system(size: 20, weight: .bold, design: .monospaced))
+                                    .padding(.leading, 24)
+                                    .offset(y: 26)
+                                Spacer()
+                            }
+                            
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 30) {
+                                    ForEach(goddess.filter {
+                                        $0.type == .other
+                                    }) { item in
+                                        HStack {
+                                            CardItem(goddessItem: item)
+                                                .matchedGeometryEffect(id: item.id, in: namespace, isSource: !show)
+                                                .transition(.identity)
+                                                .onTapGesture {
+                                                    withAnimation(.spring(response: 0.7, dampingFraction: 0.7)) {
+                                                        show.toggle()
+                                                        selectedGoddess = item
+                                                    }
+                                                }
+                                        }
+                                        .matchedGeometryEffect(id: "container\(item.id)", in: namespace, isSource: !show)
+                                    }
+                                }
+                                .padding(.horizontal, 24)
+                                .padding(.top, 30)
+                                .padding(.bottom, 50)
+                            }
+                        }
+                        
+                        
                         
                         Image("Artemis of Ephesians")
                             .blur(radius: 6)

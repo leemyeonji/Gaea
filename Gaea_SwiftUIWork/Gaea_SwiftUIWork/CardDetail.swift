@@ -16,7 +16,7 @@ struct CardDetail: View {
         
         ScrollView {
             VStack(alignment: .center) {
-                CardItem(goddessItem: goddess, namespace: namespace, cornerRadius: 0, alignment: .center, fontSize: 60, imageWidth: .infinity, imageHight: 600, blurViewOpacity: 0, headTextOpacity: 0)
+                CardItem(goddessItem: goddess, cornerRadius: 0, alignment: .center, fontSize: 60, imageWidth: .infinity, imageHight: 600, blurViewOpacity: 0, headTextOpacity: 0)
                     .matchedGeometryEffect(id: goddess.id, in: namespace)
                 
                 HStack(spacing: 14) {

@@ -10,11 +10,11 @@ import SwiftUI
 @main
 struct Gaea_SwiftUIWorkApp: App {
 
-    var namespace: Namespace.ID!
+    var namespace: Namespace!
     
     var body: some Scene {
         WindowGroup {
-            Card()
+            HomeView(show: true, namespace: namespace, selectedGoddess: goddess[0])
         }
     }
 }

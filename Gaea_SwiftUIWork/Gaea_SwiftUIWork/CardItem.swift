@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-struct Card: View {
+/* struct Card: View {
     
     @State var show: Bool = false
-    
     @Namespace var namespace
+    
     var body: some View {
         ZStack {
             if show == false {
-                CardItem(namespace: namespace)
+                CardItem()
             } else {
                 ScrollView {
                     VStack(alignment: .center) {
@@ -92,18 +92,13 @@ struct Card: View {
         }
     }
 }
+ */
 
-struct Card_Previews: PreviewProvider {
-    @Namespace static var namespace
-    static var previews: some View {
-        CardItem(namespace: namespace)
-    }
-}
 
 
 struct CardItem: View {
     var goddessItem: Goddess = goddess[0]
-    var namespace: Namespace.ID
+    
     var cornerRadius: CGFloat = 22
     var alignment: HorizontalAlignment = .leading
     var fontSize: CGFloat = 44
@@ -147,5 +142,12 @@ struct CardItem: View {
         .frame(width: imageWidth, height: imageHight)
         .mask(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
         .shadow(color: .black.opacity(0.25), radius: 20, x: 0.0, y: 10)
+    }
+}
+
+struct Card_Previews: PreviewProvider {
+    @Namespace static var namespace
+    static var previews: some View {
+        CardItem()
     }
 }
