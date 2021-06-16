@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State var show = false
-    var namespace: Namespace.ID
+    @State var show: Bool = false
+    var namespace: Namespace
     
     
     var body: some View {
@@ -29,18 +29,7 @@ struct HomeView: View {
                             .opacity(0.2)
 
                         
-                        ZStack {
-
-                            VStack {
-                                olympusGoddess
-                                otherGoddess
-                            }
-                            
-                        }
                         
-                        .offset(y: show ? CGFloat(-130) : CGFloat(0))
-                        .zIndex(1)
-                        .ignoresSafeArea()
                         
                         
                        Image("Artemis of Ephesians")
@@ -70,72 +59,69 @@ struct HomeView: View {
         }
     }
     
-    var olympusGoddess: some View {
-        ZStack(alignment: .top) {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 30) {
-                    ForEach(goddess.filter {
-                        $0.type == .olympus
-                    }.indices) { index in
-                        ZStack {
-                            Card(show: $show, goddess: goddess[index])
-                                
-                                .frame(maxWidth: 300)
-                                .frame(height: 420)
-                                
-                                .onTapGesture {
-                                    show.toggle()
-                            }
-                        }
-                    }
-                }
-                .padding(.horizontal, 27)
-                .padding(.bottom, 60)
-                .padding(.top, 60)
-            }
-            
-            Text("Olympus")
-                .font(.system(size: 20, weight: .bold, design: .monospaced))
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 27)
-                .padding(.top, 22)
-        }
-    }
-    
-    var otherGoddess: some View {
-        ZStack(alignment: .top) {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 30) {
-                    ForEach(goddess.filter {$0.type == .other}.indices) { index in
-                        Card(show: $show, goddess: goddess.filter {$0.type == .other}[index])
-                            .frame(maxWidth: 360)
-                            .frame(height: 480)
-                            
-                            .onTapGesture {
-                                show.toggle()
-                        }
-                    }
-                }
-                .padding(.horizontal, 27)
-                .padding(.bottom, 60)
-                .padding(.top, 38)
-            }
-            
-            Text("Others")
-                .font(.system(size: 20, weight: .bold, design: .monospaced))
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 27)
-                
-        }
-    }
+//    var olympusGoddess: some View {
+//        ZStack(alignment: .top) {
+//            ScrollView(.horizontal, showsIndicators: false) {
+//                HStack(spacing: 30) {
+//                    ForEach(goddess.filter {
+//                        $0.type == .olympus
+//                    }.indices) { index in
+//                        ZStack {
+//                            Card(show: $show, goddess: goddess[index])
+//
+//                                .frame(maxWidth: 300)
+//                                .frame(height: 420)
+//
+//                                .onTapGesture {
+//                                    show.toggle()
+//                            }
+//                        }
+//                    }
+//                }
+//                .padding(.horizontal, 27)
+//                .padding(.bottom, 60)
+//                .padding(.top, 60)
+//            }
+//
+//            Text("Olympus")
+//                .font(.system(size: 20, weight: .bold, design: .monospaced))
+//                .frame(maxWidth: .infinity, alignment: .leading)
+//                .padding(.leading, 27)
+//                .padding(.top, 22)
+//        }
+//    }
+//
+//    var otherGoddess: some View {
+//        ZStack(alignment: .top) {
+//            ScrollView(.horizontal, showsIndicators: false) {
+//                HStack(spacing: 30) {
+//                    ForEach(goddess.filter {$0.type == .other}.indices) { index in
+//                        Card(show: show, namespace: namespace, goddess.filter {$0.type == .other}[index])
+//                            .frame(maxWidth: 360)
+//                            .frame(height: 480)
+//
+//                            .onTapGesture {
+//                                show.toggle()
+//                        }
+//                    }
+//                }
+//                .padding(.horizontal, 27)
+//                .padding(.bottom, 60)
+//                .padding(.top, 38)
+//            }
+//
+//            Text("Others")
+//                .font(.system(size: 20, weight: .bold, design: .monospaced))
+//                .frame(maxWidth: .infinity, alignment: .leading)
+//                .padding(.leading, 27)
+//
+//        }
+//    }
 }
-
-
-
 
 struct ContentView_Previews: PreviewProvider {
     @Namespace static var namespace
     static var previews: some View {
-        HomeView(namespace: namespace)
+        HomeView(namespace: _namespace)
     }
 }

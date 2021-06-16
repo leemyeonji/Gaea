@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct CardDetail: View {
-    @Environment(\.presentationMode) var presentation
     
+    @Binding var show: Bool
     var goddess: Goddess
     var namespace: Namespace.ID
     var body: some View {
@@ -21,7 +21,7 @@ struct CardDetail: View {
                     goddess.image
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .matchedGeometryEffect(id: "image", in: namespace)
+                        .matchedGeometryEffect(id: "image", in: namespace, isSource: show)
                     
                     VStack(alignment: .center) {
                         Spacer()
@@ -29,14 +29,15 @@ struct CardDetail: View {
                             .font(.custom("Dida", size: 60))
                             .foregroundColor(Color("NameYellow"))
                             .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 10)
-                            .matchedGeometryEffect(id: "name", in: namespace)
+                            .matchedGeometryEffect(id: "name", in: namespace, isSource: show)
                     }
                     .padding(.all, 9)
                     .padding(.bottom, 9)
                     .frame(maxWidth: .infinity)
                 }
                 .frame(maxWidth: screen.width, maxHeight: 620, alignment: .center)
-                .clipShape(RoundedRectangle(cornerRadius: 0, style: .continuous))
+                .mask(RoundedRectangle(cornerRadius: 0, style: .continuous)
+                        .matchedGeometryEffect(id: "mask", in: namespace))
                 .shadow(color: .black.opacity(0.25), radius: 20, x: 0.0, y: 10)
                 .edgesIgnoringSafeArea(.all)
                 
@@ -76,7 +77,9 @@ struct CardDetail: View {
                         .padding(.bottom, 50)
                 }
             }
+            
         }
+        
         .background(Color("Background"))
         
         .ignoresSafeArea()
@@ -88,6 +91,6 @@ let screen = UIScreen.main.bounds
 struct CardDetail_Previews: PreviewProvider {
     @Namespace static var namespace
     static var previews: some View {
-        CardDetail(goddess: goddess[1], namespace: namespace)
+        CardDetail(show: .constant(true), goddess: goddess[1], namespace: namespace)
     }
 }

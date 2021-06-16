@@ -9,82 +9,117 @@ import SwiftUI
 
 struct Card: View {
     
-    @State var show = false
+    @State var show: Bool = false
     
-    var namespace: Namespace.ID
-    
+    @Namespace var namespace
     var body: some View {
         ZStack {
             if show == false {
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach(goddess) { goddess in
-                            CardItem(show: $show, goddess: goddess)
-                        }
-                    }
-                }
+                CardItem(show: $show, namespace: namespace)
             } else {
-                
-                ZStack {
-                    CardDetail(goddess: goddess[0], namespace: namespace)
-                    HStack {
-                        Spacer()
+                ScrollView {
+                    VStack(alignment: .center) {
+                        ZStack {
+                            
+                            goddess[0].image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .matchedGeometryEffect(id: "image", in: namespace, isSource: show)
+                            
+                            VStack(alignment: .center) {
+                                Spacer()
+                                Text(goddess[0].name)
+                                    .font(.custom("Dida", size: 60))
+                                    .foregroundColor(Color("NameYellow"))
+                                    .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 10)
+                                    .matchedGeometryEffect(id: "name", in: namespace, isSource: show)
+                            }
+                            .padding(.all, 9)
+                            .padding(.bottom, 9)
+                            .frame(maxWidth: .infinity)
+                        }
+                        .frame(maxWidth: screen.width, maxHeight: 620, alignment: .center)
+                        .mask(RoundedRectangle(cornerRadius: 0, style: .continuous)
+                                .matchedGeometryEffect(id: "mask", in: namespace))
+                        .shadow(color: .black.opacity(0.25), radius: 20, x: 0.0, y: 10)
+                        .edgesIgnoringSafeArea(.all)
+                        
+                        
+                        HStack(spacing: 14) {
+                            Image(systemName: "bookmark")
+                                .font(.system(size: 24))
+                            Image(systemName: "square.and.arrow.up")
+                                .font(.system(size: 24))
+                            Text(goddess[0].headDescription)
+                                .font(.system(size: 14, weight: .bold, design: .monospaced))
+                                .multilineTextAlignment(.trailing)
+                                .matchedGeometryEffect(id: "headDescription", in: namespace)
+                        }
+                        .padding(.top, 9)
+                        .padding(.horizontal, 9)
+                        
+                        Divider()
+                        
+                        VStack(spacing: 30) {
+                            Text(goddess[0].description)
+                                
+                        }
+                        .font(.system(size: 16, weight: .light, design: .monospaced))
+                        .lineSpacing(8.0)
+                        .multilineTextAlignment(.leading)
+                        .padding(.all, 32)
+                        
                         VStack {
-                            Image(systemName: "xmark.octagon.fill")
-                                .font(.system(size: 36))
-                                .opacity(0.8)
-                                .offset(x: -16, y: 16)
-                                .animation(.easeIn)
-                                .onTapGesture {
-                                    show = false
-                                }
-                            Spacer()
+                            goddess[0].footerImage?
+                                .resizable()
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 600)
+                            Text(goddess[0].fotterImageDescription ?? "")
+                                .font(.system(size: 13, weight: .medium, design: .monospaced))
+                                .padding(.top, 10)
+                                .padding(.bottom, 50)
                         }
                     }
+                    
                 }
-                .frame(maxWidth: screen.width, maxHeight: screen.height)
-
+                .edgesIgnoringSafeArea(.all)
             }
         }
         .onTapGesture {
-            withAnimation(.easeInOut) {
+            withAnimation(.spring()) {
                 show.toggle()
             }
         }
-        .ignoresSafeArea()
     }
 }
-
-
 
 struct Card_Previews: PreviewProvider {
     @Namespace static var namespace
     static var previews: some View {
-        Card(namespace: namespace)
+        Card()
     }
 }
 
+
 struct CardItem: View {
     @Binding var show: Bool
-    var goddess: Goddess
-    @Namespace var namespace
+    var namespace: Namespace.ID
     
     var body: some View {
         VStack {
             Spacer()
             
             VStack(alignment: .leading) {
-                Text(goddess.name)
-                    .matchedGeometryEffect(id: "name", in: namespace)
+                Text(goddess[0].name)
                     .font(.custom("Dida", size: 44))
                     .foregroundColor(Color("NameYellow"))
+                    .matchedGeometryEffect(id: "name", in: namespace)
                 
-                Text(goddess.headDescription)
-                    .matchedGeometryEffect(id: "headDescription", in: namespace)
+                Text(goddess[0].headDescription)
                     .font(.system(size: 13, weight: .light, design: .monospaced))
                     .multilineTextAlignment(.leading)
                     .lineLimit(3)
-                
+
             }
             .frame(maxWidth: .infinity, maxHeight: 150)
             .frame(height: 110)
@@ -93,14 +128,16 @@ struct CardItem: View {
                 VisualEffectBlur(blurStyle: .systemUltraThinMaterial)
                     .opacity(show ? 0 : 0.8)
             )
+            .clipped()
         }
-        .frame(width: 300, height: 420)
+        
         .background(
-            goddess.image
+            goddess[0].image
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .matchedGeometryEffect(id: "image", in: namespace)
         )
+        .frame(width: 300, height: 420)
         .mask(RoundedRectangle(cornerRadius: 22.0, style: .continuous))
         .shadow(color: .black.opacity(0.25), radius: 20, x: 0.0, y: 10)
     }

@@ -14,7 +14,7 @@ struct Gaea_SwiftUIWorkApp: App {
     
     var body: some Scene {
         WindowGroup {
-            Card(namespace: namespace)
+            Card()
         }
     }
 }
