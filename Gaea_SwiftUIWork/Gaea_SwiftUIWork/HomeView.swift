@@ -19,7 +19,7 @@ struct HomeView: View {
             content
             fullContent
             
-        }.navigationTitle("Gaea")
+        }
         
     }
     
@@ -28,12 +28,7 @@ struct HomeView: View {
         ScrollView(.vertical) {
             ZStack {
                 VStack {
-                    Text("Gaea")
-                        .font(.system(size:  34, weight: .heavy, design: .monospaced))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.leading, 27)
-                        .padding(.top, 12)
-                        .padding(.bottom, 12)
+
                     
                     Rectangle()
                         .frame(height: 1)

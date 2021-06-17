@@ -8,8 +8,25 @@
 import SwiftUI
 
 struct TabBar: View {
+    init() {
+        UITabBar.appearance().
+       }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        TabView {
+            
+            NavigationView {
+                HomeView()
+                    .navigationTitle("Gaea")
+            }
+            
+            .tabItem {
+                Image(systemName: "house.fill").foregroundColor(.yellow)
+                Text("Gaea")
+            }
+            
+        }
     }
 }
 
@@ -18,3 +35,4 @@ struct TabBar_Previews: PreviewProvider {
         TabBar()
     }
 }
+
