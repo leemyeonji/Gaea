@@ -42,7 +42,7 @@ struct HomeView: View {
                     
                     VStack {
                         HStack {
-                            Text("Olypus")
+                            Text("Olympus")
                                 .font(.system(size: 20, weight: .bold, design: .monospaced))
                                 .padding(.leading, 24)
                                 .offset(y: 26)

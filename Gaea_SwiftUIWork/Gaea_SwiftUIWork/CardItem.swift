@@ -107,6 +107,7 @@ struct CardItem: View {
     var imageHight: CGFloat = 420
     var blurViewOpacity: Double = 0.8
     var headTextOpacity: Double = 1
+
     
     var body: some View {
         VStack {
@@ -138,6 +139,7 @@ struct CardItem: View {
             WebImage(url: goddessItem.image)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
+                .frame(width: imageWidth, height: imageHight)
                 
         )
         .frame(width: imageWidth, height: imageHight)
