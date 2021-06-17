@@ -23,6 +23,7 @@
 		C68324002678FDA500902939 /* Gaea_SwiftUIWorkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68323E42678521900902939 /* Gaea_SwiftUIWorkApp.swift */; };
 		C6E02B06267AFCCC0019368A /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E02B05267AFCCC0019368A /* Home.swift */; };
 		C6E02B08267AFD9B0019368A /* GoddessRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E02B07267AFD9B0019368A /* GoddessRow.swift */; };
+		C6E02B0A267B5A8D0019368A /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E02B09267B5A8D0019368A /* TabBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		C68323FC2678A6E000902939 /* Goddess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goddess.swift; sourceTree = "<group>"; };
 		C6E02B05267AFCCC0019368A /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		C6E02B07267AFD9B0019368A /* GoddessRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoddessRow.swift; sourceTree = "<group>"; };
+		C6E02B09267B5A8D0019368A /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 				C68323ED2678521D00902939 /* Info.plist */,
 				C68323EA2678521D00902939 /* Preview Content */,
 				C6E02B05267AFCCC0019368A /* Home.swift */,
+				C6E02B09267B5A8D0019368A /* TabBar.swift */,
 			);
 			path = Gaea_SwiftUIWork;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 				C68323FB26785C7700902939 /* VisualEffectBlur.swift in Sources */,
 				C68323FD2678A6E000902939 /* Goddess.swift in Sources */,
 				C6E02B06267AFCCC0019368A /* Home.swift in Sources */,
+				C6E02B0A267B5A8D0019368A /* TabBar.swift in Sources */,
 				C68323F62678524E00902939 /* CardDetail.swift in Sources */,
 				C636E6112679CAE2001387EA /* HomeView.swift in Sources */,
 				C636E6152679F408001387EA /* SearchView.swift in Sources */,

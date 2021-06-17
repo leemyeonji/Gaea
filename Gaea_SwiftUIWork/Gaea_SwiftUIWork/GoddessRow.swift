@@ -13,7 +13,7 @@ struct GoddessRow: View {
     
     var body: some View {
         VStack {
-            HStack {
+            HStack(alignment: .center) {
                 Image("GoddessIcon")
                 
                 VStack(alignment:.leading, spacing: 7) {
@@ -22,7 +22,7 @@ struct GoddessRow: View {
                     Text(goddess.headDescription)
                         .font(.system(size: 13, weight: .light, design: .monospaced))
                         .lineLimit(2)
-                    
+                        .lineSpacing(18)
                 }
             }
             .padding(.vertical, 15)
