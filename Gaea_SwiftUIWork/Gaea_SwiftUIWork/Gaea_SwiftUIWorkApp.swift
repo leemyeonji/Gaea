@@ -15,7 +15,8 @@ struct Gaea_SwiftUIWorkApp: App {
     
     var body: some Scene {
         WindowGroup {
-            SearchView()
+            TabBar()
+                .environmentObject(GoddessStore())
         }
     }
 }

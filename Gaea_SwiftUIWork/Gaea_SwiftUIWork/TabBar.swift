@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct TabBar: View {
-    init() {
-        UITabBar.appearance().tintColor = .systemGray2
-       }
     
     var body: some View {
         
@@ -33,6 +30,13 @@ struct TabBar: View {
             }
             
             
+            NavigationView {
+                BookmarkView()
+            }
+            .tabItem {
+                Image(systemName: "bookmark.circle")
+                Text("Search")
+            }
         }
         
         .accentColor(.black.opacity(0.8))

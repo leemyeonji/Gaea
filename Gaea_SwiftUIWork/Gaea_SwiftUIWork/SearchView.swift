@@ -59,7 +59,9 @@ struct SearchView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom,12)
                 
-                Divider()
+                Rectangle()
+                    .frame(height: 1)
+                    .opacity(0.2)
                 
                 ScrollView {
                     ForEach(store.filteredGoddess) { goddess in

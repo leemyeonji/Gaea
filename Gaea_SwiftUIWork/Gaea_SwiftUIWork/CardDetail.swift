@@ -9,7 +9,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct CardDetail: View {
-
+    @EnvironmentObject var store: GoddessStore
     var goddess: Goddess
     var namespace: Namespace.ID
     var body: some View {
@@ -22,6 +22,17 @@ struct CardDetail: View {
                 HStack(spacing: 14) {
                     Image(systemName: "bookmark")
                         .font(.system(size: 24))
+                        .onTapGesture {
+                            store.saveBookmarks(bookmarks: goddess)
+                            store.updateBookmarksWith(bookmark: goddess, actionType: .add) { error in
+                                guard let _ = error else {
+                                    print(goddess)
+                                    return
+                                }
+                                print(GoddessError.alreadyInBookmarks)
+                            }
+                        }
+                    
                     Image(systemName: "square.and.arrow.up")
                         .font(.system(size: 24))
                     Text(goddess.headDescription)

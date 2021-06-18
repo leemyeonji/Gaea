@@ -4,7 +4,7 @@
 //
 //  Created by 임현지 on 2021/06/16.
 //
-
+import Foundation
 import SwiftUI
 import Contentful
 import Combine
@@ -13,7 +13,10 @@ import Combine
 class GoddessStore: ObservableObject {
     @Published var goddess: [Goddess] = []
     @Published var filteredGoddess: [Goddess] = []
+    @Published var bookmarkGoddess:[Goddess] = []
     @Published var searchText = ""
+    
+    let saveKey = "Bookmark"
     
     let client = Client(spaceId: "rhw260px4j41", accessToken: "_TYVwcwUrPEIN2kUoCpxQiIF5a3sa56JsFnzVdgEBL0")
 
@@ -33,6 +36,7 @@ class GoddessStore: ObservableObject {
         }
     }
 
+    
     init() {
         getArray(id: "goddess") { items in
             items.forEach { item in
@@ -45,9 +49,9 @@ class GoddessStore: ObservableObject {
                                         fotterImageDescription: item.fields["fotterImageDescription"] as? String ?? nil,
                                         type: Type(rawValue: item.fields["type"] as! String) ?? .olympus))
             }
-            print(self.goddess)
         }
     }
+    
     
     func filterContent() {
         let lowercasedSearchText = searchText.lowercased()
@@ -66,4 +70,71 @@ class GoddessStore: ObservableObject {
             filteredGoddess = []
         }
     }
+    
+    
+    
+    
+    
+    func retrieveBookmarks(completion: @escaping (Result<[Goddess], Error>) -> Void) {
+        guard let bookmarkData = UserDefaults.standard.object(forKey: saveKey) as? Data else {
+            completion(.success([]))
+            return
+        }
+        do {
+            let decoder = JSONDecoder()
+            let bookmarks = try decoder.decode([Goddess].self, from: bookmarkData)
+            completion(.success(bookmarks))
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    
+    
+    func saveBookmarks(bookmarks: Goddess) -> Error? {
+        do {
+            let encoder = JSONEncoder()
+            let encodedBookmarks = try encoder.encode(bookmarks)
+            UserDefaults.standard.set(encodedBookmarks, forKey: saveKey)
+            return nil
+        } catch {
+            return error
+        }
+    }
+    
+    
+    func updateBookmarksWith(bookmark: Goddess, actionType: RetreiveAction, completion: @escaping (GoddessError?) -> Void) {
+        retrieveBookmarks { result in
+            switch result {
+            case .success(let goddess):
+                var retrievedGoddess = goddess
+                
+                switch actionType {
+                case .add:
+                    guard !retrievedGoddess.contains(bookmark) else {
+                        completion(.alreadyInBookmarks)
+                        return
+                    }
+                    retrievedGoddess.append(bookmark)
+                    
+                    
+                case .remove:
+                    retrievedGoddess.removeAll { $0.id == bookmark.id }
+                }
+                
+                
+            case .failure:
+                completion(.somethingWentWrong)
+            }
+        }
+    }
+}
+
+enum RetreiveAction {
+    case add, remove
+}
+
+
+enum GoddessError: String, Error {
+    case alreadyInBookmarks = "You've already bookmarked this Goddess."
+    case somethingWentWrong = "Something went wrong."
 }

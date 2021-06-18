@@ -8,8 +8,28 @@
 import SwiftUI
 
 struct BookmarkView: View {
+    @ObservedObject var store = GoddessStore()
+    
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("Bookmark")
+                .font(.system(size:  34, weight: .heavy, design: .monospaced))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.leading, 27)
+                .padding(.top, 12)
+                .padding(.bottom, 12)
+            
+            Rectangle()
+                .frame(height: 1)
+                .opacity(0.2)
+            
+            Spacer()
+            
+            LazyVGrid (columns: [GridItem(.fixed(20))]) {
+                CardItem(goddessItem: store.goddess.first!)
+            }
+        }
     }
 }
 

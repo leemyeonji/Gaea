@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Goddess: Identifiable {
+struct Goddess: Identifiable, Codable, Equatable {
     let name: String
     let image: URL
     let headDescription: String
@@ -18,7 +18,7 @@ struct Goddess: Identifiable {
     var id = UUID()
 }
 
-enum Type: String {
+enum Type: String, Codable {
     case olympus
     case other
 }

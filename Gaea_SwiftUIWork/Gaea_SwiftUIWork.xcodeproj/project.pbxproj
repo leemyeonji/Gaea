@@ -78,7 +78,7 @@
 		C68323E32678521900902939 /* Gaea_SwiftUIWork */ = {
 			isa = PBXGroup;
 			children = (
-				C6E02B04267AFC2E0019368A /* View */,
+				C6E02B04267AFC2E0019368A /* Components */,
 				C6E02B03267AFBE90019368A /* Model */,
 				C6E02B02267AFBBC0019368A /* Graphic */,
 				C68323E62678521900902939 /* HomeView.swift */,
@@ -123,11 +123,11 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		C6E02B04267AFC2E0019368A /* View */ = {
+		C6E02B04267AFC2E0019368A /* Components */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = View;
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
