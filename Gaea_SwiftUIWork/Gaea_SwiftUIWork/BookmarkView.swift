@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct BookmarkView: View {
-    @ObservedObject var store = GoddessStore()
+    @EnvironmentObject var store: GoddessStore
+    var bookmarkedGoddess: [Goddess] {
+        store.bookmarkedGoddessID.map{ Goddess(for: $0)!}
+    }
     
     
     var body: some View {
@@ -26,8 +29,10 @@ struct BookmarkView: View {
             
             Spacer()
             
-            LazyVGrid (columns: [GridItem(.fixed(20))]) {
-                CardItem(goddessItem: store.goddess.first!)
+            LazyVGrid (columns: [GridItem(.adaptive(minimum: 180))], spacing: 14) {
+                ForEach(bookmarkedGoddess) { item in
+                    CardItem(goddessItem: item)
+                }
             }
         }
     }
@@ -36,5 +41,6 @@ struct BookmarkView: View {
 struct BookmarkView_Previews: PreviewProvider {
     static var previews: some View {
         BookmarkView()
+            .environmentObject(GoddessStore())
     }
 }

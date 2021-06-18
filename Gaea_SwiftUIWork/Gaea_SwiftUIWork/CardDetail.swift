@@ -10,6 +10,7 @@ import SDWebImageSwiftUI
 
 struct CardDetail: View {
     @EnvironmentObject var store: GoddessStore
+    @State var isSelected: Bool = false
     var goddess: Goddess
     var namespace: Namespace.ID
     var body: some View {
@@ -20,19 +21,8 @@ struct CardDetail: View {
                     .matchedGeometryEffect(id: goddess.id, in: namespace)
                 
                 HStack(spacing: 14) {
-                    Image(systemName: "bookmark")
-                        .font(.system(size: 24))
-                        .onTapGesture {
-                            store.saveBookmarks(bookmarks: goddess)
-                            store.updateBookmarksWith(bookmark: goddess, actionType: .add) { error in
-                                guard let _ = error else {
-                                    print(goddess)
-                                    return
-                                }
-                                print(GoddessError.alreadyInBookmarks)
-                            }
-                        }
-                    
+                    BookmarkButton(store: _store, goddess: goddess)
+                        
                     Image(systemName: "square.and.arrow.up")
                         .font(.system(size: 24))
                     Text(goddess.headDescription)

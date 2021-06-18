@@ -23,7 +23,7 @@ enum Type: String, Codable {
     case other
 }
 
-var goddessDummy: [Goddess] = [
+/* var goddessDummy: [Goddess] = [
     Goddess(name: "Demeter",
             image: URL(string:"Ceres_Hendrick Goltzius")!,
             headDescription: "Olympian goddess of the harvest and agriculture, presiding over grains and the fertility of the earth.",
@@ -56,3 +56,11 @@ var goddessDummy: [Goddess] = [
             fotterImageDescription: nil,
             type: .other)
 ]
+ */
+
+extension Goddess {
+    init?(for id: Goddess.ID) {
+        guard let goddess = GoddessStore().goddess.first(where: { $0.id == id }) else { return nil }
+        self = goddess
+    }
+}

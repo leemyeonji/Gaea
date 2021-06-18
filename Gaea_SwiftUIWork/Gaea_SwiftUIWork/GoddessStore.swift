@@ -13,8 +13,8 @@ import Combine
 class GoddessStore: ObservableObject {
     @Published var goddess: [Goddess] = []
     @Published var filteredGoddess: [Goddess] = []
-    @Published var bookmarkGoddess:[Goddess] = []
     @Published var searchText = ""
+    @Published var bookmarkedGoddessID = Set<Goddess.ID>()
     
     let saveKey = "Bookmark"
     
@@ -75,7 +75,7 @@ class GoddessStore: ObservableObject {
     
     
     
-    func retrieveBookmarks(completion: @escaping (Result<[Goddess], Error>) -> Void) {
+/*    func retrieveBookmarks(completion: @escaping (Result<[Goddess], Error>) -> Void) {
         guard let bookmarkData = UserDefaults.standard.object(forKey: saveKey) as? Data else {
             completion(.success([]))
             return
@@ -126,7 +126,7 @@ class GoddessStore: ObservableObject {
                 completion(.somethingWentWrong)
             }
         }
-    }
+    } */
 }
 
 enum RetreiveAction {
@@ -137,4 +137,22 @@ enum RetreiveAction {
 enum GoddessError: String, Error {
     case alreadyInBookmarks = "You've already bookmarked this Goddess."
     case somethingWentWrong = "Something went wrong."
+}
+
+
+
+
+
+extension GoddessStore {
+    func toggleBookmark(goddess: Goddess) {
+        if bookmarkedGoddessID.contains(goddess.id) {
+            bookmarkedGoddessID.remove(goddess.id)
+        } else {
+            bookmarkedGoddessID.insert(goddess.id)
+        }
+    }
+    
+    func isBookmarked(goddess: Goddess) -> Bool {
+        bookmarkedGoddessID.contains(goddess.id)
+    }
 }
