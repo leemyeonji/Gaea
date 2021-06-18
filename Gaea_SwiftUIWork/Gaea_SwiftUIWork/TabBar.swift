@@ -9,24 +9,34 @@ import SwiftUI
 
 struct TabBar: View {
     init() {
-        UITabBar.appearance().
+        UITabBar.appearance().tintColor = .systemGray2
        }
     
     var body: some View {
         
         TabView {
-            
             NavigationView {
                 HomeView()
-                    .navigationTitle("Gaea")
             }
-            
             .tabItem {
-                Image(systemName: "house.fill").foregroundColor(.yellow)
+                Image(systemName: "house.fill")
                 Text("Gaea")
             }
             
+            
+            NavigationView {
+                SearchView()
+            }
+            .tabItem {
+                Image(systemName: "magnifyingglass")
+                Text("Search")
+            }
+            
+            
         }
+        
+        .accentColor(.black.opacity(0.8))
+        
     }
 }
 

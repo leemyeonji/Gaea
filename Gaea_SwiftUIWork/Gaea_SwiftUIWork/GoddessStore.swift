@@ -63,7 +63,7 @@ class GoddessStore: ObservableObject {
             }
             self.filteredGoddess = matchingGoddess
         } else {
-            filteredGoddess = goddess
+            filteredGoddess = []
         }
     }
 }

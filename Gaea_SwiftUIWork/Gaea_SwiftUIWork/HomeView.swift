@@ -18,120 +18,132 @@ struct HomeView: View {
         ZStack {
             content
             fullContent
-            
         }
-        
+        .navigationBarHidden(true)
     }
     
     var content: some View {
         
         ScrollView(.vertical) {
+            
             ZStack {
                 VStack {
+                        Text("Gaea")
+                            .font(.system(size:  34, weight: .heavy, design: .monospaced))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.leading, 27)
+                            .padding(.top, 12)
+                            .padding(.bottom, 12)
 
-                    
-                    Rectangle()
-                        .frame(height: 1)
-                        .opacity(0.2)
-                    
-                    
-                    VStack {
-                        HStack {
+                        Rectangle()
+                            .frame(height: 1)
+                            .opacity(0.2)
+                        
+                        
+                        VStack {
+                            
                             Text("Olympus")
                                 .font(.system(size: 20, weight: .bold, design: .monospaced))
-                                .padding(.leading, 24)
-                                .offset(y: 26)
-                            Spacer()
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 27)
+                                .padding(.top, 34)
+                            
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 30) {
+                                    ForEach(store.goddess.filter {
+                                        $0.type == .olympus
+                                    }) { item in
+                                        HStack {
+                                            CardItem(goddessItem: item)
+                                                .matchedGeometryEffect(id: item.id, in: namespace, isSource: !show)
+                                                .transition(.identity)
+                                                .onTapGesture {
+                                                    withAnimation(.spring(response: 0.7, dampingFraction: 0.7)) {
+                                                        show.toggle()
+                                                        selectedGoddess = item
+                                                    }
+                                                }
+                                        }
+                                        .matchedGeometryEffect(id: "container\(item.id)", in: namespace, isSource: !show)
+                                    }
+                                }
+                                .padding(.horizontal, 27)
+                                .padding(.top, 30)
+                                .padding(.bottom, 50)
+                            }
+                            
+                            .offset(y: -28)
                         }
                         
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 30) {
-                                ForEach(store.goddess.filter {
-                                    $0.type == .olympus
-                                }) { item in
-                                    HStack {
-                                        CardItem(goddessItem: item)
-                                            .matchedGeometryEffect(id: item.id, in: namespace, isSource: !show)
-                                            .transition(.identity)
-                                            .onTapGesture {
-                                                withAnimation(.spring(response: 0.7, dampingFraction: 0.7)) {
-                                                    show.toggle()
-                                                    selectedGoddess = item
+                        
+                        
+                        VStack {
+                            
+                                Text("Others")
+                                    .font(.system(size: 20, weight: .bold, design: .monospaced))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.leading, 27)
+                                    
+                              
+                            
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 30) {
+                                    ForEach(store.goddess.filter {
+                                        $0.type == .other
+                                    }) { item in
+                                        HStack {
+                                            CardItem(goddessItem: item)
+                                                .matchedGeometryEffect(id: item.id, in: namespace, isSource: !show)
+                                                .transition(.identity)
+                                                .onTapGesture {
+                                                    withAnimation(.spring(response: 0.7, dampingFraction: 0.7)) {
+                                                        show.toggle()
+                                                        selectedGoddess = item
+                                                    }
                                                 }
-                                            }
+                                        }
+                                        .matchedGeometryEffect(id: "container\(item.id)", in: namespace, isSource: !show)
                                     }
-                                    .matchedGeometryEffect(id: "container\(item.id)", in: namespace, isSource: !show)
                                 }
+                                .padding(.horizontal, 27)
+                                .padding(.top, 30)
+                                .padding(.bottom, 50)
                             }
-                            .padding(.horizontal, 24)
-                            .padding(.top, 30)
-                            .padding(.bottom, 50)
-                        }
-                    }
-                    
-                    
-                    VStack {
-                        HStack {
-                            Text("Others")
-                                .font(.system(size: 20, weight: .bold, design: .monospaced))
-                                .padding(.leading, 24)
-                                .offset(y: 26)
-                            Spacer()
+                            .offset(y: -28)
                         }
                         
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 30) {
-                                ForEach(store.goddess.filter {
-                                    $0.type == .other
-                                }) { item in
-                                    HStack {
-                                        CardItem(goddessItem: item)
-                                            .matchedGeometryEffect(id: item.id, in: namespace, isSource: !show)
-                                            .transition(.identity)
-                                            .onTapGesture {
-                                                withAnimation(.spring(response: 0.7, dampingFraction: 0.7)) {
-                                                    show.toggle()
-                                                    selectedGoddess = item
-                                                }
-                                            }
+                        .offset(y: -30)
+                        
+                        
+                        
+                        
+                        Image("Artemis of Ephesians")
+                            .blur(radius: 6)
+                            .overlay(Rectangle()
+                                        .foregroundColor(.black.opacity(0.6))
+                            )
+                            .overlay(
+                                VStack(alignment: .leading, spacing: 26) {
+                                    Text("Archaeological materials are not mute. They speak their own language. And they need to be used for the great source they are to help unravel the spirituality of those of our ancestors who predate the Indo-Europeans by many thousands of years.")
+                                        .font(.system(size: 18, weight: .light, design: .monospaced))
+                                    Text("Marija Gimbutienė")
+                                        .font(.system(size: 18, weight: .bold, design: .monospaced))
+                                    HStack(spacing: 14) {
+                                        Image(systemName: "play.rectangle.fill")
+                                        Image(systemName: "link")
                                     }
-                                    .matchedGeometryEffect(id: "container\(item.id)", in: namespace, isSource: !show)
-                                }
-                            }
-                            .padding(.horizontal, 24)
-                            .padding(.top, 30)
-                            .padding(.bottom, 50)
-                        }
-                    }
-                    .offset(y: -30)
-                    
-                    
-                    
-                    
-                    Image("Artemis of Ephesians")
-                        .blur(radius: 6)
-                        .overlay(Rectangle()
-                                    .foregroundColor(.black.opacity(0.6))
-                        )
-                        .overlay(
-                            VStack(alignment: .leading, spacing: 26) {
-                                Text("Archaeological materials are not mute. They speak their own language. And they need to be used for the great source they are to help unravel the spirituality of those of our ancestors who predate the Indo-Europeans by many thousands of years.")
-                                    .font(.system(size: 18, weight: .light, design: .monospaced))
-                                Text("Marija Gimbutienė")
                                     .font(.system(size: 18, weight: .bold, design: .monospaced))
-                                HStack(spacing: 14) {
-                                    Image(systemName: "play.rectangle.fill")
-                                    Image(systemName: "link")
                                 }
-                                .font(.system(size: 18, weight: .bold, design: .monospaced))
-                            }
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 60)
-                        )
-                        //.padding(.top, 40)
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 60)
+                            )
+                            
                 }
+                .frame(maxWidth: screen.width)
             }
+            .zIndex(1)
         }
+        
     }
     
     @ViewBuilder
@@ -150,6 +162,7 @@ struct HomeView: View {
                     }
                     .transition(.scale)
             }
+            .frame(width: screen.width)
             .zIndex(2)
             
         }

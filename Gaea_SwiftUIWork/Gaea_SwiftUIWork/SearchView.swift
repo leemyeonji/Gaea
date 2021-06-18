@@ -19,6 +19,7 @@ struct SearchView: View {
             content
             fullcontent
         }
+        .navigationBarHidden(true)
     }
 
     var content: some View {

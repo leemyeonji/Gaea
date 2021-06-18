@@ -22,7 +22,7 @@ struct GoddessRow: View {
                     Text(goddess.headDescription)
                         .font(.system(size: 13, weight: .light, design: .monospaced))
                         .lineLimit(2)
-                        .lineSpacing(18)
+                        .lineSpacing(10)
                 }
             }
             .padding(.vertical, 15)
