@@ -19,7 +19,7 @@ struct CardDetail: View {
             VStack(alignment: .center) {
                 CardItem(goddessItem: goddess, cornerRadius: 0, alignment: .center, fontSize: 60, imageWidth: screen.width, imageHight: 600, blurViewOpacity: 0, headTextOpacity: 0)
                     .matchedGeometryEffect(id: goddess.id, in: namespace, isSource: isSelected)
-                    .matchedGeometryEffect(id: goddess.id + "\(1)", in: namespace)
+                    .matchedGeometryEffect(id: goddess.id + "\(1)", in: namespace, isSource: isSelected)
                     
                 
                 HStack(spacing: 14) {
