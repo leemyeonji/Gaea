@@ -13,8 +13,6 @@ struct BookmarkView: View {
         store.bookmarkedGoddessID.map {
             Goddess(for: $0, goddessItems: store.goddess) ?? store.goddess.first!
         }
-        
-        
     }
     
     
@@ -36,6 +34,16 @@ struct BookmarkView: View {
             LazyVGrid (columns: [GridItem(.adaptive(minimum: 180))], spacing: 14) {
                 ForEach(bookmarkedGoddess) { item in
                     CardItem(goddessItem: item)
+                }
+            }
+        }
+        .onAppear() {
+            PersistenceManager.retrieveBookmarks { result in
+                switch result {
+                case .success(let goddessID):
+                    store.bookmarkedGoddessID.insert(goddessID)
+                case .failure(let error):
+                    print(error)
                 }
             }
         }

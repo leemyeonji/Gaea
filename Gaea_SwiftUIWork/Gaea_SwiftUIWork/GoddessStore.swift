@@ -16,7 +16,9 @@ class GoddessStore: ObservableObject {
     @Published var searchText = ""
     @Published var bookmarkedGoddessID = Set<Goddess.ID>()
     
-    let saveKey = "Bookmark"
+    
+    
+    
     
     let client = Client(spaceId: "rhw260px4j41", accessToken: "_TYVwcwUrPEIN2kUoCpxQiIF5a3sa56JsFnzVdgEBL0")
 
@@ -151,10 +153,58 @@ extension GoddessStore {
             bookmarkedGoddessID.remove(goddess.id)
         } else {
             bookmarkedGoddessID.insert(goddess.id)
+            
+//            let url = getDocumentsDirectory().appendingPathComponent("Bookmarked").appendingPathExtension("plist")
+//            do {
+//                let encoder = JSONEncoder()
+//                let encodedBookmark = try encoder.encode(goddess.id)
+//                try encodedBookmark.write(to: url)
+//
+//                print(encodedBookmark)
+//            } catch {
+//                print(error.localizedDescription)
+//            }
         }
     }
     
     func isBookmarked(goddess: Goddess) -> Bool {
         bookmarkedGoddessID.contains(goddess.id)
     }
+}
+
+
+enum PersistenceManager {
+    static private let defaults = UserDefaults.standard
+    
+    static let saveKey = "Bookmark"
+    
+    
+    static func retrieveBookmarks(completion: @escaping (Result<Goddess.ID, GoddessError>) -> Void) {
+        guard let bookmarkData = defaults.object(forKey: "Bookmark") as? Data else {
+            completion(.success(""))
+            return
+        }
+        do {
+           let decoder = JSONDecoder()
+           let bookmarks = try decoder.decode(Goddess.ID.self, from: bookmarkData)
+            completion(.success(bookmarks))
+        } catch {
+            completion(.failure(.somethingWentWrong))
+        }
+    }
+    
+    
+    static func saveBookmarks(bookmarks: Goddess.ID) -> GoddessError? {
+        do {
+            let encoder = JSONEncoder()
+            let encodedBookmarks = try encoder.encode(bookmarks)
+            defaults.set(encodedBookmarks, forKey: saveKey)
+            return nil
+        } catch {
+            return .somethingWentWrong
+        }
+    }
+    
+    
+
 }
