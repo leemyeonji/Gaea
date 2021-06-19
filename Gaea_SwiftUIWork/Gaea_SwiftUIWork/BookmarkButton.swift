@@ -25,7 +25,7 @@ struct BookmarkButton: View {
     func toggleBookmark() {
         guard let goddess = goddess else { return }
         store.toggleBookmark(goddess: goddess)
-        PersistenceManager.saveBookmarks(bookmarks: goddess.id)
+        
         print(store.bookmarkedGoddessID)
     }
 }

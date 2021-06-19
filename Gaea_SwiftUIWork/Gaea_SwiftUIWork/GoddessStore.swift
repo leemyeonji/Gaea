@@ -14,7 +14,12 @@ class GoddessStore: ObservableObject {
     @Published var goddess: [Goddess] = []
     @Published var filteredGoddess: [Goddess] = []
     @Published var searchText = ""
-    @Published var bookmarkedGoddessID = Set<Goddess.ID>()
+    @Published var bookmarkedGoddessID = Set<Goddess.ID>() {
+        didSet {
+            PersistenceManager.saveBookmarks(bookmarks: bookmarkedGoddessID)
+        }
+        
+    }
     
     
     
@@ -141,6 +146,7 @@ enum RetreiveAction {
 enum GoddessError: String, Error {
     case alreadyInBookmarks = "You've already bookmarked this Goddess."
     case somethingWentWrong = "Something went wrong."
+    case cannotSave = "야 저장 실패다"
 }
 
 
@@ -179,14 +185,14 @@ enum PersistenceManager {
     static let saveKey = "Bookmark"
     
     
-    static func retrieveBookmarks(completion: @escaping (Result<Goddess.ID, GoddessError>) -> Void) {
+    static func retrieveBookmarks(completion: @escaping (Result<Set<Goddess.ID>, GoddessError>) -> Void) {
         guard let bookmarkData = defaults.object(forKey: "Bookmark") as? Data else {
-            completion(.success(""))
+            completion(.failure(.alreadyInBookmarks))
             return
         }
         do {
            let decoder = JSONDecoder()
-           let bookmarks = try decoder.decode(Goddess.ID.self, from: bookmarkData)
+           let bookmarks = try decoder.decode(Set<Goddess.ID>.self, from: bookmarkData)
             completion(.success(bookmarks))
         } catch {
             completion(.failure(.somethingWentWrong))
@@ -194,14 +200,14 @@ enum PersistenceManager {
     }
     
     
-    static func saveBookmarks(bookmarks: Goddess.ID) -> GoddessError? {
+    static func saveBookmarks(bookmarks: Set<Goddess.ID>) -> GoddessError? {
         do {
             let encoder = JSONEncoder()
             let encodedBookmarks = try encoder.encode(bookmarks)
             defaults.set(encodedBookmarks, forKey: saveKey)
             return nil
         } catch {
-            return .somethingWentWrong
+            return .cannotSave
         }
     }
     

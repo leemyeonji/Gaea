@@ -41,7 +41,7 @@ struct BookmarkView: View {
             PersistenceManager.retrieveBookmarks { result in
                 switch result {
                 case .success(let goddessID):
-                    store.bookmarkedGoddessID.insert(goddessID)
+                    store.bookmarkedGoddessID = goddessID
                 case .failure(let error):
                     print(error)
                 }
