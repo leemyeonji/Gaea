@@ -150,8 +150,8 @@ struct HomeView: View {
     var fullContent: some View {
         if let selectedGoddess = selectedGoddess {
             ZStack(alignment: .topTrailing){
-                CardDetail(goddess: selectedGoddess, namespace: namespace)
-                
+                CardDetail(isSelected: $show, goddess: selectedGoddess, namespace: namespace)
+                    
                 CloseButton()
                     .padding(.trailing, 20)
                     .onTapGesture {
@@ -172,6 +172,6 @@ struct HomeView: View {
 struct ContentView_Previews: PreviewProvider {
     @Namespace static var namespace
     static var previews: some View {
-        HomeView()
+        HomeView(namespace: _namespace)
     }
 }

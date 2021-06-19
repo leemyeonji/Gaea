@@ -12,7 +12,7 @@ struct SearchView: View {
     @State var isEditing = false
     @State var isSelected = false
     @State var selectedGoddess: Goddess? = nil
-    @Namespace var namespace
+    @Namespace var namespace3
     
     var body: some View {
         ZStack {
@@ -81,7 +81,8 @@ struct SearchView: View {
     var fullcontent: some View {
         if selectedGoddess != nil && isSelected == true {
             ZStack(alignment: .topTrailing) {
-                CardDetail(goddess: selectedGoddess!, namespace: namespace)
+                CardDetail(isSelected: $isSelected, goddess: selectedGoddess!, namespace: namespace3)
+                    .matchedGeometryEffect(id: "card", in: namespace3)
                 CloseButton()
                     .padding(.trailing, 24)
                     .onTapGesture {
@@ -97,6 +98,6 @@ struct SearchView: View {
 struct SearchView_Previews: PreviewProvider {
     @Namespace static var namespace
     static var previews: some View {
-        SearchView(namespace: _namespace)
+        SearchView()
     }
 }

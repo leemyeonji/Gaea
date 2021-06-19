@@ -125,9 +125,9 @@ struct CardItem: View {
                     .lineLimit(3)
                     .opacity(headTextOpacity)
             }
+            .padding(.all, 9)
             .frame(maxWidth: .infinity, maxHeight: 150)
             .frame(height: 110)
-            .padding(.all, 9)
             .background(
                 VisualEffectBlur(blurStyle: .systemUltraThinMaterial)
                     .opacity(blurViewOpacity)
