@@ -10,7 +10,11 @@ import SwiftUI
 struct BookmarkView: View {
     @EnvironmentObject var store: GoddessStore
     var bookmarkedGoddess: [Goddess] {
-        store.bookmarkedGoddessID.map{ Goddess(for: $0)!}
+        store.bookmarkedGoddessID.map {
+            Goddess(for: $0, goddessItems: store.goddess) ?? store.goddess.first!
+        }
+        
+        
     }
     
     

@@ -21,7 +21,7 @@ struct CardDetail: View {
                     .matchedGeometryEffect(id: goddess.id, in: namespace)
                 
                 HStack(spacing: 14) {
-                    BookmarkButton(store: _store, goddess: goddess)
+                    BookmarkButton(goddess: goddess)
                         
                     Image(systemName: "square.and.arrow.up")
                         .font(.system(size: 24))

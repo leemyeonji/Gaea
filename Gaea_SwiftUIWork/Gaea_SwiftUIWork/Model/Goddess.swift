@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Goddess: Identifiable, Codable, Equatable {
+    let id: String
     let name: String
     let image: URL
     let headDescription: String
@@ -15,7 +16,6 @@ struct Goddess: Identifiable, Codable, Equatable {
     let footerImage: URL?
     let fotterImageDescription: String?
     let type: Type
-    var id = UUID()
 }
 
 enum Type: String, Codable {
@@ -59,8 +59,9 @@ enum Type: String, Codable {
  */
 
 extension Goddess {
-    init?(for id: Goddess.ID) {
-        guard let goddess = GoddessStore().goddess.first(where: { $0.id == id }) else { return nil }
+    
+    init?(for id: Goddess.ID, goddessItems: [Goddess]) {
+        guard let goddess = goddessItems.first(where: { $0.id == id }) else { return nil }
         self = goddess
     }
 }

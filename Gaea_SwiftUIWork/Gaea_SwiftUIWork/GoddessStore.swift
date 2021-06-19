@@ -36,18 +36,20 @@ class GoddessStore: ObservableObject {
         }
     }
 
+
+
     
     init() {
         getArray(id: "goddess") { items in
             items.forEach { item in
-                self.goddess.append(Goddess(
-                                        name: item.fields["name"] as? String ?? "",
-                                        image: item.fields.linkedAsset(at: "image")?.url ?? URL(string: "")!,
-                                        headDescription: item.fields["headDescription"] as? String ?? "",
-                                        description: item.fields["description"] as? String ?? "",
-                                        footerImage: item.fields.linkedAsset(at: "footerImage")?.url ?? nil,
-                                        fotterImageDescription: item.fields["fotterImageDescription"] as? String ?? nil,
-                                        type: Type(rawValue: item.fields["type"] as! String) ?? .olympus))
+                self.goddess.append(Goddess(id: item.fields["id"] as? String ?? "",
+                                            name: item.fields["name"] as? String ?? "",
+                                            image: item.fields.linkedAsset(at: "image")?.url ?? URL(string: "")!,
+                                            headDescription: item.fields["headDescription"] as? String ?? "",
+                                            description: item.fields["description"] as? String ?? "",
+                                            footerImage: item.fields.linkedAsset(at: "footerImage")?.url ?? nil,
+                                            fotterImageDescription: item.fields["fotterImageDescription"] as? String ?? nil,
+                                            type: Type(rawValue: item.fields["type"] as! String) ?? .olympus))
             }
         }
     }
