@@ -46,10 +46,10 @@ struct BookmarkView: View {
                 
                 ZStack {
                     ScrollView {
-                        LazyVGrid (columns: [GridItem(.adaptive(minimum: 160),spacing: 12)], spacing: 20) {
+                        LazyVGrid (columns: [GridItem(.adaptive(minimum: 150),spacing: 12)], spacing: 20) {
                             ForEach(bookmarkedGoddess) { item in
                                 CardItem(goddessItem: item,
-                                         cornerRadius: 22.0,
+                                         cornerRadius: 12.0,
                                          alignment: .center,
                                          fontSize: 26.0,
                                          imageWidth: 160,

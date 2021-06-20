@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SearchView: View {
     @StateObject var store = GoddessStore()
-    @State var isEditing = false
     @State var isSelected = false
     @State var selectedGoddess: Goddess? = nil
     @Namespace var namespace3
@@ -21,7 +20,7 @@ struct SearchView: View {
         }
         .navigationBarHidden(true)
     }
-
+    
     var content: some View {
         ZStack {
             VStack {
@@ -43,15 +42,11 @@ struct SearchView: View {
                             .keyboardType(.default)
                             .foregroundColor(Color.black)
                             .font(.system(size: 15, weight: .medium, design: .monospaced))
-                            .onChange(of: store.searchText, perform: { text in
-                                isEditing = true
-                                
-                                if isEditing {
-                                    withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
-                                        store.filterContent()
-                                    }
-                                }
-                        })
+                            .onChange(of: store.searchText){ text in
+                                withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
+                                    store.filterContent()
+                            }
+                        }
                     }
                 }
                 .frame(height: 40)
@@ -68,8 +63,10 @@ struct SearchView: View {
                         GoddessRow(goddess: goddess)
                             .padding(.horizontal, 30)
                             .onTapGesture {
-                                isSelected = true
-                               selectedGoddess = goddess
+                                withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
+                                    isSelected = true
+                                    selectedGoddess = goddess
+                            }
                         }
                     }
                 }

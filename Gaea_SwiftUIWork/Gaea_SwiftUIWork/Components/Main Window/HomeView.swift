@@ -41,7 +41,6 @@ struct HomeView: View {
                         
                         
                         VStack {
-                            
                             Text("Olympus")
                                 .font(.system(size: 20, weight: .bold, design: .monospaced))
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -129,8 +128,14 @@ struct HomeView: View {
                                     Text("Marija Gimbutienė")
                                         .font(.system(size: 18, weight: .bold, design: .monospaced))
                                     HStack(spacing: 14) {
-                                        Image(systemName: "play.rectangle.fill")
-                                        Image(systemName: "link")
+                                        Link(destination: URL(string: "https://en.wikipedia.org/wiki/Marija_Gimbutas")!) {
+                                            Image(systemName: "link")
+                                        }
+                                        Link(destination: URL(string: "https://www.youtube.com/watch?v=-k34hXty4iw")!) {
+                                            Image(systemName: "play.rectangle.fill")
+                                        }
+                                        
+                                        //
                                     }
                                     .font(.system(size: 18, weight: .bold, design: .monospaced))
                                 }

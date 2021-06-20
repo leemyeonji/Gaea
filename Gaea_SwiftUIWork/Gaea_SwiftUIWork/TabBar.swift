@@ -35,7 +35,7 @@ struct TabBar: View {
             }
             .tabItem {
                 Image(systemName: "bookmark.circle")
-                Text("Search")
+                Text("Bookmark")
             }
         }
         

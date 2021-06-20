@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Goddess: Identifiable, Codable, Equatable {
+struct Goddess: Identifiable, Codable, Equatable, Comparable {
     let id: String
     let name: String
     let image: URL
@@ -16,6 +16,10 @@ struct Goddess: Identifiable, Codable, Equatable {
     let footerImage: URL?
     let fotterImageDescription: String?
     let type: Type
+    
+    static func < (lhs: Goddess, rhs: Goddess) -> Bool {
+        return lhs.name < rhs.name
+    }
 }
 
 enum Type: String, Codable {

@@ -43,8 +43,6 @@ class GoddessStore: ObservableObject {
         }
     }
 
-
-
     
     init() {
         getArray(id: "goddess") { items in
@@ -65,18 +63,19 @@ class GoddessStore: ObservableObject {
     func filterContent() {
         let lowercasedSearchText = searchText.lowercased()
         
-        if searchText.count != 0 {
+        if searchText.count > 0 {
             var matchingGoddess: [Goddess] = []
             
             self.goddess.forEach { goddess in
                 let searchContent = goddess.name + goddess.description + goddess.headDescription
-                if searchContent.lowercased().contains(lowercasedSearchText) {
+                if searchContent.lowercased().range(of: lowercasedSearchText, options: .literal) != nil {
                     matchingGoddess.append(goddess)
                 }
             }
             self.filteredGoddess = matchingGoddess
+            
         } else {
-            filteredGoddess = []
+            filteredGoddess = goddess
         }
     }
     
@@ -138,9 +137,7 @@ class GoddessStore: ObservableObject {
     } */
 }
 
-enum RetreiveAction {
-    case add, remove
-}
+
 
 
 enum GoddessError: String, Error {
@@ -178,39 +175,3 @@ extension GoddessStore {
     }
 }
 
-
-enum PersistenceManager {
-    static private let defaults = UserDefaults.standard
-    
-    static let saveKey = "Bookmark"
-    
-    
-    static func retrieveBookmarks(completion: @escaping (Result<Set<Goddess.ID>, GoddessError>) -> Void) {
-        guard let bookmarkData = defaults.object(forKey: "Bookmark") as? Data else {
-            completion(.failure(.alreadyInBookmarks))
-            return
-        }
-        do {
-           let decoder = JSONDecoder()
-           let bookmarks = try decoder.decode(Set<Goddess.ID>.self, from: bookmarkData)
-            completion(.success(bookmarks))
-        } catch {
-            completion(.failure(.somethingWentWrong))
-        }
-    }
-    
-    
-    static func saveBookmarks(bookmarks: Set<Goddess.ID>) -> GoddessError? {
-        do {
-            let encoder = JSONEncoder()
-            let encodedBookmarks = try encoder.encode(bookmarks)
-            defaults.set(encodedBookmarks, forKey: saveKey)
-            return nil
-        } catch {
-            return .cannotSave
-        }
-    }
-    
-    
-
-}

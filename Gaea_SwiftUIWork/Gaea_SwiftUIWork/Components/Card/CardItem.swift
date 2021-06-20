@@ -107,7 +107,7 @@ struct CardItem: View {
     var imageHight: CGFloat = 420
     var blurViewOpacity: Double = 0.8
     var headTextOpacity: Double = 1
-
+    var nameHeight: CGFloat = 150
     
     var body: some View {
         VStack {
@@ -117,7 +117,6 @@ struct CardItem: View {
                 Text(goddessItem.name)
                     .font(.custom("Dida", size: fontSize))
                     .foregroundColor(Color("NameYellow"))
-                    
                 
                 Text(goddessItem.headDescription)
                     .font(.system(size: 13, weight: .light, design: .monospaced))
@@ -126,7 +125,7 @@ struct CardItem: View {
                     .opacity(headTextOpacity)
             }
             .padding(.all, 9)
-            .frame(maxWidth: .infinity, maxHeight: 150)
+            .frame(maxWidth: .infinity, maxHeight: nameHeight)
             .frame(height: 110)
             .background(
                 VisualEffectBlur(blurStyle: .systemUltraThinMaterial)
