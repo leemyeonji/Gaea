@@ -11,6 +11,7 @@ import SDWebImageSwiftUI
 struct CardDetail: View {
     @EnvironmentObject var store: GoddessStore
     @Binding var isSelected: Bool
+    @State var shareToggle: Bool = false
     var goddess: Goddess
     var namespace: Namespace.ID
     var body: some View {
@@ -24,9 +25,8 @@ struct CardDetail: View {
                 
                 HStack(spacing: 14) {
                     BookmarkButton(goddess: goddess)
-                        
-                    Image(systemName: "square.and.arrow.up")
-                        .font(.system(size: 24))
+                    ShareButton(goddess: goddess)
+                    
                     Text(goddess.headDescription)
                         .font(.system(size: 14, weight: .bold, design: .monospaced))
                         .multilineTextAlignment(.trailing)

@@ -107,31 +107,34 @@ struct CardItem: View {
     var imageHight: CGFloat = 420
     var blurViewOpacity: Double = 0.8
     var headTextOpacity: Double = 1
-    var nameHeight: CGFloat = 150
+    var nameAlignment: VerticalAlignment = .top
     
     var body: some View {
         VStack {
             Spacer()
             
-            VStack(alignment: alignment) {
-                Text(goddessItem.name)
-                    .font(.custom("Dida", size: fontSize))
-                    .foregroundColor(Color("NameYellow"))
-                
-                Text(goddessItem.headDescription)
-                    .font(.system(size: 13, weight: .light, design: .monospaced))
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(3)
-                    .opacity(headTextOpacity)
+            HStack(alignment: nameAlignment) {
+                VStack(alignment: alignment) {
+                    Text(goddessItem.name)
+                        .font(.custom("Dida", size: fontSize))
+                        .foregroundColor(Color("NameYellow"))
+                        
+                    
+                    Text(goddessItem.headDescription)
+                        .font(.system(size: 13, weight: .light, design: .monospaced))
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(3)
+                        .opacity(headTextOpacity)
+                }
+                .padding(.all, 9)
+                .frame(maxWidth: .infinity, maxHeight: 150)
+                .frame(height: 110)
+                .background(
+                    VisualEffectBlur(blurStyle: .systemUltraThinMaterial)
+                        .opacity(blurViewOpacity)
+                )
+                .clipped()
             }
-            .padding(.all, 9)
-            .frame(maxWidth: .infinity, maxHeight: nameHeight)
-            .frame(height: 110)
-            .background(
-                VisualEffectBlur(blurStyle: .systemUltraThinMaterial)
-                    .opacity(blurViewOpacity)
-            )
-            .clipped()
         }
         
         .background(

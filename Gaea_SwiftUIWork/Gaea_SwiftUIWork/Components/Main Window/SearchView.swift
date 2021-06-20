@@ -59,13 +59,13 @@ struct SearchView: View {
                     .opacity(0.2)
                 
                 ScrollView {
-                    ForEach(store.filteredGoddess) { goddess in
-                        GoddessRow(goddess: goddess)
-                            .padding(.horizontal, 30)
-                            .onTapGesture {
-                                withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
-                                    isSelected = true
-                                    selectedGoddess = goddess
+                        ForEach(store.searchText.count > 0 ? store.filteredGoddess : store.goddess) { goddess in
+                            GoddessRow(goddess: goddess)
+                                .padding(.horizontal, 30)
+                                .onTapGesture {
+                                    withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
+                                        isSelected = true
+                                        selectedGoddess = goddess
                             }
                         }
                     }
