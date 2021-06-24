@@ -26,7 +26,7 @@ struct BookmarkButton: View {
         guard let goddess = goddess else { return }
         store.toggleBookmark(goddess: goddess)
         
-        print(store.bookmarkedGoddessID)
+        //print(store.bookmarkedGoddessID)
     }
 }
 

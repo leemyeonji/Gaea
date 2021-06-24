@@ -25,7 +25,7 @@ struct CardDetail: View {
                 
                 HStack(spacing: 14) {
                     BookmarkButton(goddess: goddess)
-                    ShareButton(goddess: goddess)
+                    ShareButton(store: _store, goddess: goddess)
                     
                     Text(goddess.headDescription)
                         .font(.system(size: 14, weight: .bold, design: .monospaced))

@@ -16,7 +16,13 @@ struct HomeView: View {
     
     var body: some View {
         ZStack {
-            content
+            TabView {
+                content
+            }
+            .tabItem {
+                Image(systemName: "house.fill")
+                Text("Gaea")
+            }
             fullContent
         }
         .navigationBarHidden(true)

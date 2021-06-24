@@ -9,7 +9,8 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct ShareButton: View {
-    var goddess : Goddess
+    @EnvironmentObject var store: GoddessStore
+    var goddess: Goddess?
     
     var body: some View {
         
@@ -22,9 +23,9 @@ struct ShareButton: View {
     }
     
     func shareButton() {
-            let webImage = WebImage(url: self.goddess.image)
+        let webImage = WebImage(url: self.goddess?.image)
             let activityController = UIActivityViewController(activityItems: [webImage], applicationActivities: nil)
-            
+
             UIApplication.shared.windows.first!.rootViewController!.present(activityController, animated: true)
     }
 }
