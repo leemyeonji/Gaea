@@ -12,6 +12,7 @@ struct BookmarkView: View {
     @Namespace var namespace2
     @State var isSelected: Bool = false
     @State var selectedGoddess: Goddess?
+    @Environment(\.colorScheme) var colorScheme
     
     var bookmarkedGoddess: [Goddess] {
         store.bookmarkedGoddessID.map {
@@ -59,6 +60,7 @@ struct BookmarkView: View {
                                          nameAlignment: .lastTextBaseline,
                                          nameOffset: 50
                                          )
+                                .shadow(color: colorScheme == .light ? .black.opacity(0.25) : Color("NameYellow").opacity(0.25), radius: 15, x: 0.0, y: 10)
                                     .matchedGeometryEffect(id: item.id + "\(1)", in: namespace2, isSource: !isSelected)
                                     .onTapGesture {
                                         withAnimation(.spring(response: 0.6, dampingFraction: 0.7, blendDuration: 0)) {

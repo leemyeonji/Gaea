@@ -46,7 +46,7 @@ struct HomeView: View {
                     Text("Bookmark")
                 }
             }
-            .accentColor(.black.opacity(0.7))
+            .accentColor(.primary.opacity(0.7))
             
             fullContent
         }
@@ -57,7 +57,7 @@ struct HomeView: View {
     var content: some View {
         
         ZStack {
-            Color("Background").ignoresSafeArea()
+            //Color("Background").ignoresSafeArea()
             
             ScrollView(.vertical) {
                 ZStack {
@@ -88,7 +88,7 @@ struct HomeView: View {
                                     }) { item in
                                         HStack {
                                             CardItem(goddessItem: item)
-                                                .shadow(color: colorScheme == .light ? .black.opacity(0.25) : Color("NameYellow").opacity(0.2), radius: 20, x: 0.0, y: 10)
+                                                .shadow(color: colorScheme == .light ? .black.opacity(0.25) : Color("NameYellow").opacity(0.25), radius: 15, x: 0.0, y: 10)
 
                                                 .matchedGeometryEffect(id: item.id, in: namespace, isSource: !show)
                                                 .transition(.identity)
@@ -125,6 +125,7 @@ struct HomeView: View {
                                     }) { item in
                                         HStack {
                                             CardItem(goddessItem: item)
+                                                .shadow(color: colorScheme == .light ? .black.opacity(0.25) : Color("NameYellow").opacity(0.2), radius: 20, x: 0.0, y: 10)
                                                 .matchedGeometryEffect(id: item.id, in: namespace, isSource: !show)
                                                 .transition(.identity)
                                                 .onTapGesture {

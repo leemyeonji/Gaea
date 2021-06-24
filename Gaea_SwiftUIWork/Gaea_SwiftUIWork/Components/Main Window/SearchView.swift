@@ -35,7 +35,7 @@ struct SearchView: View {
                     HStack {
                         Image(systemName: "magnifyingglass.circle.fill")
                             .font(.system(size: 15, weight: .medium))
-                            .foregroundColor(.black.opacity(0.6))
+                            .foregroundColor(.primary.opacity(0.6))
                             .padding(.leading)
                         
                         TextField("Search Goddess", text: $store.searchText)
@@ -50,7 +50,7 @@ struct SearchView: View {
                     }
                 }
                 .frame(height: 40)
-                .background(RoundedRectangle(cornerRadius: 40.0, style: .continuous).stroke(lineWidth: 0.7).foregroundColor(.black.opacity(0.3)))
+                .background(RoundedRectangle(cornerRadius: 40.0, style: .continuous).stroke(lineWidth: 0.7).foregroundColor(.primary.opacity(0.3)))
                 .padding(.horizontal, 20)
                 .padding(.bottom,12)
                 
