@@ -12,6 +12,7 @@ struct CardDetail: View {
     @EnvironmentObject var store: GoddessStore
     @Binding var isSelected: Bool
     @State var shareToggle: Bool = false
+    
     var goddess: Goddess
     var namespace: Namespace.ID
     var body: some View {

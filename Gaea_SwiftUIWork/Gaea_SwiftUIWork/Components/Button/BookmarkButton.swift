@@ -18,7 +18,8 @@ struct BookmarkButton: View {
     var body: some View {
         Button(action: toggleBookmark) {
             Image(systemName: isBookmarked ? "bookmark.fill" : "bookmark")
-                .font(.system(size: 24))  
+                .font(.system(size: 24))
+                .foregroundColor(.black)
         }
     }
     

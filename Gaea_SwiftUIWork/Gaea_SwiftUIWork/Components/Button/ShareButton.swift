@@ -19,6 +19,7 @@ struct ShareButton: View {
         }, label: {
             Image(systemName: "square.and.arrow.up")
                 .font(.system(size: 24))
+                .foregroundColor(.black)
         })
     }
     
