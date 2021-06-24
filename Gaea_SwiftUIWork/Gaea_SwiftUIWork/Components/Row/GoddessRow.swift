@@ -9,7 +9,6 @@ import SwiftUI
 
 struct GoddessRow: View {
     var goddess: Goddess
-    //GoddessStore.init().goddess.first!
     
     var body: some View {
         VStack {

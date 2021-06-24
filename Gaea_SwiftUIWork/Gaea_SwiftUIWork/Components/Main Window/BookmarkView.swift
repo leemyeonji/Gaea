@@ -56,7 +56,8 @@ struct BookmarkView: View {
                                          imageHight: 230,
                                          blurViewOpacity: 0,
                                          headTextOpacity: 0,
-                                         nameAlignment: .bottom
+                                         nameAlignment: .lastTextBaseline,
+                                         nameOffset: 50
                                          )
                                     .matchedGeometryEffect(id: item.id + "\(1)", in: namespace2, isSource: !isSelected)
                                     .onTapGesture {

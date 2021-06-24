@@ -108,6 +108,7 @@ struct CardItem: View {
     var blurViewOpacity: Double = 0.8
     var headTextOpacity: Double = 1
     var nameAlignment: VerticalAlignment = .top
+    var nameOffset: CGFloat = .zero
     
     var body: some View {
         VStack {
@@ -118,7 +119,7 @@ struct CardItem: View {
                     Text(goddessItem.name)
                         .font(.custom("Dida", size: fontSize))
                         .foregroundColor(Color("NameYellow"))
-                        
+                        .offset(y: nameOffset)
                     
                     Text(goddessItem.headDescription)
                         .font(.system(size: 13, weight: .light, design: .monospaced))
@@ -146,7 +147,7 @@ struct CardItem: View {
         )
         .frame(width: imageWidth, height: imageHight)
         .mask(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
-        .shadow(color: .black.opacity(0.25), radius: 20, x: 0.0, y: 10)
+        
     }
 }
 

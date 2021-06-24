@@ -59,7 +59,7 @@ struct SearchView: View {
                     .opacity(0.2)
                 
                 ScrollView {
-                        ForEach(store.searchText.count > 0 ? store.filteredGoddess : store.goddess) { goddess in
+                    ForEach(store.searchText.count > 0 ? store.filteredGoddess : store.goddess.sorted()) { goddess in
                             GoddessRow(goddess: goddess)
                                 .padding(.horizontal, 30)
                                 .onTapGesture {

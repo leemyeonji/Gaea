@@ -22,7 +22,7 @@ struct CardDetail: View {
                 CardItem(goddessItem: goddess, cornerRadius: 0, alignment: .center, fontSize: 60, imageWidth: screen.width, imageHight: 600, blurViewOpacity: 0, headTextOpacity: 0)
                     .matchedGeometryEffect(id: goddess.id, in: namespace, isSource: isSelected)
                     .matchedGeometryEffect(id: goddess.id + "\(1)", in: namespace, isSource: isSelected)
-                    
+                    .shadow(color: .black.opacity(0.25), radius: 20, x: 0.0, y: 10)
                 
                 HStack(spacing: 14) {
                     BookmarkButton(goddess: goddess)
@@ -44,14 +44,17 @@ struct CardDetail: View {
                 }
                 .font(.system(size: 16, weight: .light, design: .monospaced))
                 .lineSpacing(8.0)
+                .lineLimit(.none)
                 .multilineTextAlignment(.leading)
                 .padding(.all, 32)
                 
                 VStack {
                     WebImage(url: goddess.footerImage)
                         .resizable()
+                        .aspectRatio(contentMode: .fit)
                         .frame(maxWidth: .infinity)
-                        .frame(height: 600)
+                        //.frame(height: 600)
+                        
                     Text(goddess.fotterImageDescription ?? "")
                         .font(.system(size: 13, weight: .medium, design: .monospaced))
                         .padding(.top, 10)
