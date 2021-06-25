@@ -87,11 +87,11 @@ struct HomeView: View {
                                         $0.type == .olympus
                                     }) { item in
                                         HStack {
-                                            CardItem(goddessItem: item)
+                                            CardItem(goddessItem: item, namespace: namespace, matchedGeometryEffectID: item.id, toggle: $show)
                                                 .shadow(color: colorScheme == .light ? .black.opacity(0.25) : Color("NameYellow").opacity(0.25), radius: 15, x: 0.0, y: 10)
 
                                                 .matchedGeometryEffect(id: item.id, in: namespace, isSource: !show)
-                                                .transition(.identity)
+                                                //.transition(.)
                                                 .onTapGesture {
                                                     withAnimation(.spring(response: 0.7, dampingFraction: 0.7)) {
                                                         show.toggle()
@@ -99,7 +99,7 @@ struct HomeView: View {
                                                     }
                                                 }
                                         }
-                                        .matchedGeometryEffect(id: "container\(item.id)", in: namespace, isSource: !show)
+//                                        .matchedGeometryEffect(id: "container\(item.id)", in: namespace, isSource: !show)
                                     }
                                 }
                                 .padding(.horizontal, 27)
@@ -124,18 +124,17 @@ struct HomeView: View {
                                         $0.type == .other
                                     }) { item in
                                         HStack {
-                                            CardItem(goddessItem: item)
+                                            CardItem(goddessItem: item, namespace: namespace, matchedGeometryEffectID: item.id, toggle: $show)
                                                 .shadow(color: colorScheme == .light ? .black.opacity(0.25) : Color("NameYellow").opacity(0.2), radius: 20, x: 0.0, y: 10)
-                                                .matchedGeometryEffect(id: item.id, in: namespace, isSource: !show)
-                                                .transition(.identity)
+                                                
+                                                //.transition(.identity)
                                                 .onTapGesture {
                                                     withAnimation(.spring(response: 0.7, dampingFraction: 0.7)) {
                                                         show.toggle()
                                                         selectedGoddess = item
                                                     }
-                                                }
+                                            }
                                         }
-                                        .matchedGeometryEffect(id: "container\(item.id)", in: namespace, isSource: !show)
                                     }
                                 }
                                 .padding(.horizontal, 27)
@@ -187,7 +186,8 @@ struct HomeView: View {
     var fullContent: some View {
         if let selectedGoddess = selectedGoddess {
             ZStack(alignment: .topTrailing){
-                CardDetail(isSelected: $show, goddess: selectedGoddess, namespace: namespace)
+                CardDetail(isSelected: $show, goddess: selectedGoddess, namespace: namespace, matchedGeometryEffectID: selectedGoddess.id)
+//                    .matchedGeometryEffect(id: selectedGoddess.id, in: namespace, isSource: !show)
 //                    .gesture(
 //                        DragGesture().onChanged { value in
 //                            self.activeCard = value.translation
@@ -209,7 +209,7 @@ struct HomeView: View {
                             self.selectedGoddess = nil
                         }
                     }
-                    .transition(.scale)
+                    .transition(.opacity)
             }
             .frame(width: screen.width)
             .zIndex(2)

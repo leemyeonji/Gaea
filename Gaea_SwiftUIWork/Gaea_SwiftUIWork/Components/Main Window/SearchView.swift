@@ -78,7 +78,7 @@ struct SearchView: View {
     var fullcontent: some View {
         if selectedGoddess != nil && isSelected == true {
             ZStack(alignment: .topTrailing) {
-                CardDetail(isSelected: $isSelected, goddess: selectedGoddess!, namespace: namespace3)
+                CardDetail(isSelected: $isSelected, goddess: selectedGoddess!, namespace: namespace3, matchedGeometryEffectID: "")
                     .matchedGeometryEffect(id: "card", in: namespace3)
                 CloseButton()
                     .padding(.trailing, 24)

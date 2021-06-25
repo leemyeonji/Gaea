@@ -15,14 +15,15 @@ struct CardDetail: View {
     
     var goddess: Goddess
     var namespace: Namespace.ID
+    var matchedGeometryEffectID: String
+    
     var body: some View {
         
         ScrollView {
             VStack(alignment: .center) {
-                CardItem(goddessItem: goddess, cornerRadius: 0, alignment: .center, fontSize: 60, imageWidth: screen.width, imageHight: 600, blurViewOpacity: 0, headTextOpacity: 0)
-                    .matchedGeometryEffect(id: goddess.id, in: namespace, isSource: isSelected)
-                    .matchedGeometryEffect(id: goddess.id + "\(1)", in: namespace, isSource: isSelected)
+                CardItem(goddessItem: goddess, cornerRadius: 0, alignment: .center, fontSize: 60, imageWidth: screen.width, imageHight: 600, blurViewOpacity: 0, headTextOpacity: 0, namespace: namespace, matchedGeometryEffectID: matchedGeometryEffectID, toggle: $isSelected)
                     .shadow(color: .black.opacity(0.25), radius: 20, x: 0.0, y: 10)
+                    .matchedGeometryEffect(id: matchedGeometryEffectID, in: namespace, isSource: !isSelected)
                 
                 HStack(spacing: 14) {
                     BookmarkButton(goddess: goddess)
@@ -61,9 +62,7 @@ struct CardDetail: View {
                         .padding(.bottom, 50)
                 }
             }
-            
         }
-        .matchedGeometryEffect(id: "container\(goddess.id)", in: namespace)
         
         .background(Color("Background"))
         

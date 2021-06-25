@@ -110,6 +110,10 @@ struct CardItem: View {
     var nameAlignment: VerticalAlignment = .top
     var nameOffset: CGFloat = .zero
     
+    var namespace: Namespace.ID
+    var matchedGeometryEffectID: String
+    @Binding var toggle: Bool
+    
     var body: some View {
         VStack {
             Spacer()
@@ -137,7 +141,6 @@ struct CardItem: View {
                 .clipped()
             }
         }
-        
         .background(
             WebImage(url: goddessItem.image)
                 .resizable()
@@ -147,13 +150,13 @@ struct CardItem: View {
         )
         .frame(width: imageWidth, height: imageHight)
         .mask(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
-        
+        //.matchedGeometryEffect(id: matchedGeometryEffectID, in: namespace, isSource: !toggle)
     }
 }
 
-struct Card_Previews: PreviewProvider {
-    @Namespace static var namespace
-    static var previews: some View {
-        CardItem(goddessItem: GoddessStore.init().goddess.first!)
-    }
-}
+//struct Card_Previews: PreviewProvider {
+//    @Namespace static var namespace
+//    static var previews: some View {
+//        CardItem(goddessItem: GoddessStore.init().goddess.first!, namespace: namespace, matchedGeometryEffectID: "")
+//    }
+//}

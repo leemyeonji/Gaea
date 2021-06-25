@@ -58,16 +58,19 @@ struct BookmarkView: View {
                                          blurViewOpacity: 0,
                                          headTextOpacity: 0,
                                          nameAlignment: .lastTextBaseline,
-                                         nameOffset: 50
+                                         nameOffset: 50,
+                                         namespace: namespace2,
+                                         matchedGeometryEffectID: item.id + "\(1)",
+                                         toggle: $isSelected
                                          )
+                                .matchedGeometryEffect(id: item.id + "\(1)", in: namespace2, isSource: !isSelected)
                                 .shadow(color: colorScheme == .light ? .black.opacity(0.25) : Color("NameYellow").opacity(0.25), radius: 15, x: 0.0, y: 10)
-                                    .matchedGeometryEffect(id: item.id + "\(1)", in: namespace2, isSource: !isSelected)
                                     .onTapGesture {
                                         withAnimation(.spring(response: 0.6, dampingFraction: 0.7, blendDuration: 0)) {
                                             isSelected.toggle()
                                             selectedGoddess = item
-                                        }
-                                 }.matchedGeometryEffect(id: "container\(item.id)", in: namespace2, isSource: !isSelected)
+                                    }
+                                 }
                             }
                         }
                         .padding()
@@ -93,7 +96,7 @@ struct BookmarkView: View {
     var fullContent: some View {
         if selectedGoddess != nil && isSelected {
             ZStack(alignment: .topTrailing) {
-                CardDetail(isSelected: $isSelected, goddess: selectedGoddess!, namespace: namespace2)
+                CardDetail(isSelected: $isSelected, goddess: selectedGoddess!, namespace: namespace2, matchedGeometryEffectID: selectedGoddess!.id + "\(1)")
                     
                 CloseButton()
                     .padding(.trailing, 24)
@@ -103,6 +106,8 @@ struct BookmarkView: View {
                     }
             }
             .zIndex(2)
+        } else {
+            content
         }
     }
 }

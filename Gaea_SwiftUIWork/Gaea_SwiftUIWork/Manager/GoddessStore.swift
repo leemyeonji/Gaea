@@ -18,11 +18,7 @@ class GoddessStore: ObservableObject {
         didSet {
             PersistenceManager.saveBookmarks(bookmarks: bookmarkedGoddessID)
         }
-        
     }
-    
-    
-    
     
     
     let client = Client(spaceId: "rhw260px4j41", accessToken: "_TYVwcwUrPEIN2kUoCpxQiIF5a3sa56JsFnzVdgEBL0")
@@ -78,7 +74,6 @@ class GoddessStore: ObservableObject {
             filteredGoddess = goddess.sorted()
         }
     }
-    
     
     
     
@@ -145,8 +140,6 @@ enum GoddessError: String, Error {
     case somethingWentWrong = "Something went wrong."
     case cannotSave = "야 저장 실패다"
 }
-
-
 
 
 
