@@ -10,8 +10,11 @@ import SDWebImageSwiftUI
 
 struct CardDetail: View {
     @EnvironmentObject var store: GoddessStore
+    @Environment(\.presentationMode) var presentationMode
     @Binding var isSelected: Bool
     @State var shareToggle: Bool = false
+    
+    
     
     var goddess: Goddess
     var namespace: Namespace.ID
@@ -21,7 +24,7 @@ struct CardDetail: View {
         
         ScrollView {
             VStack(alignment: .center) {
-                CardItem(goddessItem: goddess, cornerRadius: 0, alignment: .center, fontSize: 60, imageWidth: screen.width, imageHight: 600, blurViewOpacity: 0, headTextOpacity: 0, namespace: namespace, matchedGeometryEffectID: matchedGeometryEffectID, toggle: $isSelected)
+                CardItem(goddessItem: goddess, cornerRadius: 0, alignment: .center, fontSize: 60, imageWidth: screen.width, imageHight: 600, blurViewOpacity: 0, headTextOpacity: 0)
                     .shadow(color: .black.opacity(0.25), radius: 20, x: 0.0, y: 10)
                     .matchedGeometryEffect(id: matchedGeometryEffectID, in: namespace, isSource: !isSelected)
                 
@@ -63,7 +66,6 @@ struct CardDetail: View {
                 }
             }
         }
-        
         .background(Color("Background"))
         
         .ignoresSafeArea()

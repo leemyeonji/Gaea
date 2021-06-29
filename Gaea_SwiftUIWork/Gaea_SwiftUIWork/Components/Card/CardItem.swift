@@ -110,9 +110,6 @@ struct CardItem: View {
     var nameAlignment: VerticalAlignment = .top
     var nameOffset: CGFloat = .zero
     
-    var namespace: Namespace.ID
-    var matchedGeometryEffectID: String
-    @Binding var toggle: Bool
     
     var body: some View {
         VStack {
@@ -124,6 +121,7 @@ struct CardItem: View {
                         .font(.custom("Dida", size: fontSize))
                         .foregroundColor(Color("NameYellow"))
                         .offset(y: nameOffset)
+                        .shadow(color: .black.opacity(0.7), radius: 15, x: 0, y: 20)
                     
                     Text(goddessItem.headDescription)
                         .font(.system(size: 13, weight: .light, design: .monospaced))
@@ -150,7 +148,6 @@ struct CardItem: View {
         )
         .frame(width: imageWidth, height: imageHight)
         .mask(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
-        //.matchedGeometryEffect(id: matchedGeometryEffectID, in: namespace, isSource: !toggle)
     }
 }
 

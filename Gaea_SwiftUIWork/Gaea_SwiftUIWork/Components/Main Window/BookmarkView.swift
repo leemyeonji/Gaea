@@ -24,7 +24,7 @@ struct BookmarkView: View {
         ZStack {
             content
             fullContent
-                
+            
         }
         .navigationBarHidden(true)
     }
@@ -58,19 +58,16 @@ struct BookmarkView: View {
                                          blurViewOpacity: 0,
                                          headTextOpacity: 0,
                                          nameAlignment: .lastTextBaseline,
-                                         nameOffset: 50,
-                                         namespace: namespace2,
-                                         matchedGeometryEffectID: item.id + "\(1)",
-                                         toggle: $isSelected
-                                         )
+                                         nameOffset: 50
+                                )
                                 .matchedGeometryEffect(id: item.id + "\(1)", in: namespace2, isSource: !isSelected)
                                 .shadow(color: colorScheme == .light ? .black.opacity(0.25) : Color("NameYellow").opacity(0.25), radius: 15, x: 0.0, y: 10)
-                                    .onTapGesture {
-                                        withAnimation(.spring(response: 0.6, dampingFraction: 0.7, blendDuration: 0)) {
-                                            isSelected.toggle()
-                                            selectedGoddess = item
+                                .onTapGesture {
+                                    withAnimation(.spring(response: 0.6, dampingFraction: 0.7, blendDuration: 0)) {
+                                        isSelected.toggle()
+                                        selectedGoddess = item
                                     }
-                                 }
+                                }
                             }
                         }
                         .padding()
@@ -87,7 +84,7 @@ struct BookmarkView: View {
                         print(error)
                     }
                 }
-        }
+            }
         }
         .zIndex(1)
     }
@@ -106,8 +103,6 @@ struct BookmarkView: View {
                     }
             }
             .zIndex(2)
-        } else {
-            content
         }
     }
 }

@@ -13,7 +13,7 @@ struct HomeView: View {
     @State var show: Bool = false
     @Namespace var namespace
     @State var selectedGoddess: Goddess? = nil
-    @State var activeCard = CGSize.zero
+    @State var scrollHeight = CGSize.zero
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
@@ -50,15 +50,13 @@ struct HomeView: View {
             
             fullContent
         }
-        
-        
     }
+    
+    
     
     var content: some View {
         
         ZStack {
-            //Color("Background").ignoresSafeArea()
-            
             ScrollView(.vertical) {
                 ZStack {
                     VStack {
@@ -87,19 +85,18 @@ struct HomeView: View {
                                         $0.type == .olympus
                                     }) { item in
                                         HStack {
-                                            CardItem(goddessItem: item, namespace: namespace, matchedGeometryEffectID: item.id, toggle: $show)
+                                            CardItem(goddessItem: item)
                                                 .shadow(color: colorScheme == .light ? .black.opacity(0.25) : Color("NameYellow").opacity(0.25), radius: 15, x: 0.0, y: 10)
 
                                                 .matchedGeometryEffect(id: item.id, in: namespace, isSource: !show)
-                                                //.transition(.)
                                                 .onTapGesture {
                                                     withAnimation(.spring(response: 0.7, dampingFraction: 0.7)) {
                                                         show.toggle()
                                                         selectedGoddess = item
                                                     }
                                                 }
+                                                .transition(.scale)
                                         }
-//                                        .matchedGeometryEffect(id: "container\(item.id)", in: namespace, isSource: !show)
                                     }
                                 }
                                 .padding(.horizontal, 27)
@@ -124,16 +121,17 @@ struct HomeView: View {
                                         $0.type == .other
                                     }) { item in
                                         HStack {
-                                            CardItem(goddessItem: item, namespace: namespace, matchedGeometryEffectID: item.id, toggle: $show)
+                                            CardItem(goddessItem: item)
+                                                .matchedGeometryEffect(id: item.id, in: namespace, isSource: !show)
                                                 .shadow(color: colorScheme == .light ? .black.opacity(0.25) : Color("NameYellow").opacity(0.2), radius: 20, x: 0.0, y: 10)
                                                 
-                                                //.transition(.identity)
                                                 .onTapGesture {
-                                                    withAnimation(.spring(response: 0.7, dampingFraction: 0.7)) {
+                                                    withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
                                                         show.toggle()
                                                         selectedGoddess = item
-                                                    }
+                                                }
                                             }
+                                                .transition(.opacity)
                                         }
                                     }
                                 }
@@ -143,7 +141,6 @@ struct HomeView: View {
                             }
                             .offset(y: -28)
                         }
-                        
                         .offset(y: -30)
                         
                         
@@ -187,29 +184,16 @@ struct HomeView: View {
         if let selectedGoddess = selectedGoddess {
             ZStack(alignment: .topTrailing){
                 CardDetail(isSelected: $show, goddess: selectedGoddess, namespace: namespace, matchedGeometryEffectID: selectedGoddess.id)
-//                    .matchedGeometryEffect(id: selectedGoddess.id, in: namespace, isSource: !show)
-//                    .gesture(
-//                        DragGesture().onChanged { value in
-//                            self.activeCard = value.translation
-//                        }
-//                        .onEnded { value in
-//                            if activeCard.height > 50 {
-//                                self.show = false
-//                                self.selectedGoddess = nil
-//                            }
-//                            self.activeCard = .zero
-//                        }
-//                    )
-//
+                    
+
                 CloseButton()
                     .padding(.trailing, 20)
                     .onTapGesture {
                         withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
                             self.show = false
                             self.selectedGoddess = nil
-                        }
                     }
-                    .transition(.opacity)
+                }
             }
             .frame(width: screen.width)
             .zIndex(2)
